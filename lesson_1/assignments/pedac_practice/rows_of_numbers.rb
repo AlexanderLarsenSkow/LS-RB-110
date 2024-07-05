@@ -40,6 +40,7 @@ Examples:
 		# - initialize row variable to 3, the first value where we minus a number from the power.
 		# - 
 		# - Increment minus_num by 1 
+		# - Increment rows number until it equals the input number.
 		# - Subtract the final value from the power reassignment.
 
 
