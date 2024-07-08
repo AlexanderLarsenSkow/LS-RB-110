@@ -33,7 +33,10 @@
 # Data Structures
 
 # Algorithm:
-	# 1. 
+	# 1. Check to see if the year can be divided evenly by 400. Return true
+	# 2. If it can't, check to see if it can be divied evenly by 100. Return false
+	# 3 Check to see if the year can be divided evenly by 4.
+	# 4. Return the result.
 	
 # Code
 
