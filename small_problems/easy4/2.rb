@@ -62,10 +62,6 @@
 	}
 	
 	
-	def century_endings(century_num)
-		string_cent = century_num.to_s 
-	end 
-	
 	def century(year)
 		current_year = 0
 		current_century = 1
@@ -76,22 +72,39 @@
 			
 			break if current_year == year
 		end 
-		century_endings(current_century)
+		current_century
+	end 
+	
+	def add_ending(year)
+		century_var = century(year).to_s 
+		
+		NUM_ENDINGS.each do |ending, element|
+			if ending == 'th'
+				element.each do |number|
+					if century_var[-2, 2] == number || century_var[-1] == number
+						century_var += ending += ' century'
+					end 
+				end 
+				elsif century_var[-2, 2] == element || century_var[-1] == element
+					century_var += ending += ' century'
+			end
+		end 
+			century_var
 	end 
 	
 p century(601)	
 p century(1701)
 
-=begin
-p century(2000) == '20th'
-p century(2001) == '21st'
-p century(1965) == '20th'
-p century(256) == '3rd'
-p century(5) == '1st' 								#year.length < 100 # => 1
-p century(10103) == '102nd'
-p century(1052) == '11th'
-p century(1127) == '12th'
-p century(11201) == '113th' 
-=end 	
+p add_ending(601) 
+p add_ending (101)
+p add_ending(1555)
+p add_ending(2000) 
+p add_ending(2001) 
+p add_ending(1965) 
+p add_ending(256) 
+p add_ending(5)
+p add_ending(10103) 
+p add_ending(1052) 
+p add_ending(1127)
+p add_ending(11201)
 	
-
