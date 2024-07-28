@@ -14,3 +14,15 @@ Step-by-Step Sequence for Tic Tac Toe
 8. Play again?
 9. If yes, go to #1
 10. Good bye!
+
+      |           |       
+      |           |       
+      |           |       
+------+-----------+------ 
+      |           |       
+      |           |       
+      |           |       
+------+-----------+------ 
+      |           |       
+      |           |       
+      |           |       
