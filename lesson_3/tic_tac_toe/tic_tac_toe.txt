@@ -26,3 +26,13 @@ Step-by-Step Sequence for Tic Tac Toe
       |           |       
       |           |       
       |           |       
+
+
+Win Conditions High Level Algorithm:
+1. Check to see if there are 3 of the same marker across
+2. Check to see if there are 3 of the same marker veritically
+3. Check to see if there are 3 of the same marker diagnally
+
+Across: 2 numbers next to it: 1 - 2 - 3, 4 - 5 - 6, 7 - 8 - 9
+Down: 3 away: 1 - 4 - 7, 2 - 5 - 8, 3 - 6 - 9
+Diagnal: 4 away: 1 - 5 - 9, 3 - 5 - 7 
