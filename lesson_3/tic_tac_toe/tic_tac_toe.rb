@@ -9,6 +9,7 @@ end
 # Step 1: Display the Board
 
 def display_board(brd)
+	puts "You: X		Computer: O"
 	system "clear"
 	puts "      |           |       "
 	puts "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
@@ -28,8 +29,6 @@ def initialize_board
 	(1..9).each {|num| new_board[num] = INITIAL_MARKER}
 	new_board
 end 
-
-board = initialize_board
 
 # Step 2: Getting User Choice
 
@@ -90,20 +89,31 @@ def detect_winner(board)
 	nil
 end 
 
-detect_winner(board)
+# Main Game
 
-loop do
+loop do 
+	board = initialize_board
+
+	loop do
+		display_board(board)
+		player_choice!(board)
+		break if someone_won?(board) || full_board?(board)
+		computer_choice!(board)
+		break if someone_won?(board) || full_board?(board)
+	end
+	system "clear"
 	display_board(board)
-	player_choice!(board)
-	break if someone_won?(board) || full_board?(board)
-	computer_choice!(board)
-	break if someone_won?(board) || full_board?(board)
-end
-system "clear"
-display_board(board)
 
-if someone_won?(board) 
-	prompt("#{detect_winner(board)} won!")
-else 
-	prompt("It's a tie!")
+	if someone_won?(board) 
+		prompt("#{detect_winner(board)} won!")
+	else 
+		prompt("It's a tie!")
+	end
+	
+	prompt("Play again? Y / N")
+	answer = gets.chomp
+	
+	break unless answer.upcase.start_with?('Y')
 end 
+
+prompt("Thanks for playing!")
