@@ -64,13 +64,46 @@ def full_board?(board)
 end
 
 def someone_won?(board)
-	false
+	!!detect_winner(board)
 end 
 
-loop do 
-	player_choice!(board)
-	computer_choice!(board)
-	system "clear"
+def detect_winner(board)
+	winning_lines = [
+		[1, 2, 3], [4, 5, 6], [7, 8, 9], # rows
+		[1, 4, 7], [2, 5, 8], [3, 6, 9], # columns
+		[1, 5, 9], [3, 5, 7] # diagnals
+	]
+	
+	winning_lines.each do |line|
+		
+		if board[line[0]] == X_MARKER && 
+			board[line[1]] == X_MARKER &&
+			board[line[2]] == X_MARKER
+				return 'Player'
+		
+		elsif board[line[0]] == O_MARKER && 
+			board[line[1]] == O_MARKER &&
+			board[line[2]] == O_MARKER
+				return 'Computer'
+		end 
+	end
+	nil
+end 
+
+detect_winner(board)
+
+loop do
 	display_board(board)
+	player_choice!(board)
+	break if someone_won?(board) || full_board?(board)
+	computer_choice!(board)
 	break if someone_won?(board) || full_board?(board)
 end
+system "clear"
+display_board(board)
+
+if someone_won?(board) 
+	prompt("#{detect_winner(board)} won!")
+else 
+	prompt("It's a tie!")
+end 
