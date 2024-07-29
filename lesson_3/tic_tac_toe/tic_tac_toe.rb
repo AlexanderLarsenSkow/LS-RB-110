@@ -9,6 +9,7 @@ end
 # Step 1: Display the Board
 
 def display_board(brd)
+	system "clear"
 	puts "      |           |       "
 	puts "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
 	puts "      |           |       "
@@ -29,7 +30,6 @@ def initialize_board
 end 
 
 board = initialize_board
-display_board(board)
 
 # Step 2: Getting User Choice
 
@@ -59,9 +59,18 @@ def computer_choice!(board)
 	board[computer_square] = O_MARKER
 end 
 
+def full_board?(board)
+	empty_squares(board).empty?
+end
+
+def someone_won?(board)
+	false
+end 
+
 loop do 
 	player_choice!(board)
 	computer_choice!(board)
+	system "clear"
 	display_board(board)
-	break if empty_squares(board).empty?
+	break if someone_won?(board) || full_board?(board)
 end
