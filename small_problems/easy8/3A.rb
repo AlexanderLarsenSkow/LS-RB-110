@@ -24,7 +24,7 @@ def substrings(string)
 			index += 1
 		end 
 	end
-	result.uniq
+	result
 end 
 
 
