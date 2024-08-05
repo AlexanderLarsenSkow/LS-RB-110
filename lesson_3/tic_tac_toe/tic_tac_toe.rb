@@ -8,6 +8,11 @@ WINNING_LINES = [
   [1, 5, 9], [3, 5, 7] # diagnals
 ]
 
+SCORE = {
+  player: 0,
+  computer: 0
+}
+
 def prompt(message)
   puts "<< #{message}"
 end
@@ -29,6 +34,9 @@ def display_board(brd)
   puts "      |           |       "
   puts "  #{brd[7]}   |     #{brd[8]}     |   #{brd[9]}      "
   puts "      |           |       "
+  puts ""
+  puts "Player: #{SCORE[:player]}      Computer: #{SCORE[:computer]}"
+  puts ""
 end
 # rubocop: enable Metrics/AbcSize
 
@@ -103,6 +111,14 @@ def detect_winner(board)
   nil
 end
 
+def add_score!(board)
+  if detect_winner(board) == 'Player'
+    SCORE[:player] += 1
+  else
+    SCORE[:computer] += 1
+  end 
+end 
+
 # Main Game
 
 loop do
@@ -119,6 +135,7 @@ loop do
   display_board(board)
 
   if someone_won?(board)
+    add_score!(board)
     prompt("#{detect_winner(board)} won!")
   else
     prompt("It's a tie!")
