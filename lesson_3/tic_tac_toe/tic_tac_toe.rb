@@ -84,6 +84,20 @@ end
 
 # STEP 3: Getting the Computer's Choice
 
+def computer_defense(board)
+  computer_choice = 0
+  WINNING_LINES.each do |line|
+    board_values = board.values_at(*line)
+    
+    if board_values.count(X_MARKER) == 2
+      available_choice = board_values.select {|val| val == INITIAL_MARKER}
+    end 
+    
+    computer_choice = board.key(available_choice)
+  end 
+  computer_choice
+end   
+
 def computer_choice!(board)
   computer_square = empty_squares(board).sample
   board[computer_square] = O_MARKER
@@ -100,7 +114,6 @@ end
 def detect_winner(board)
   WINNING_LINES.each do |line|
     board_values = board.values_at(*line)
-
     if board_values.count(X_MARKER) == 3
       return 'Player'
 
