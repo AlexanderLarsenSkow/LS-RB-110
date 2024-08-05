@@ -29,12 +29,14 @@
 	Data Structure: Arrays
 	
 	Algorithm:
-		# Iterate through the array 
+		# Iterate through and transform the array 
 		# print each number with the punctuation following it 
 		# If it's the last number, then print the joiner before the number
 		# If the size of the array is less than 2, don't print punctuation. 
 			# For the first element, print just the number
-		# Call the method in the user_choice method
+		# Join the new array into a string.
+		# Call this method in the player_choice! method
+	
 	
 	
 			
