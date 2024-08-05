@@ -1,0 +1,40 @@
+1. joinor method 
+	
+	PEDAC
+	
+	Understanding the Problem:
+		We want to write a method that adds a joining word or comma before the final number in the empty_squares (available_choices) array.
+		
+		Input: Empty Squares array 
+		Output: A display adding the correct joining words for the number of integers available. 
+		
+		Explicit Requirements:
+			If there are only 2 elements in the array, the output should num or num 
+			If there are 3 or more elements in the array, the output should be num, num, or num 
+			Provide optional parameter of a semi-colon to separate each word instead of a comma.
+			Provide optional parameter of 'and' string instead of or for the final element.
+			
+		Implicit Requirements:
+			Default parameter puncation is equal to ','
+			Default parameter joiner is equal to 'or'
+			3 parameters total: array, punctuation==',', joiner=='or'
+	
+	Examples:
+		joinor([1, 2])                   # => "1 or 2"
+		joinor([1, 2, 3])                # => "1, 2, or 3"
+		joinor([1, 2, 3], '; ')          # => "1; 2; or 3"
+		joinor([1, 2, 3], ', ', 'and')   # => "1, 2, and 3"
+			
+	
+	Data Structure: Arrays
+	
+	Algorithm:
+		# Iterate through the array 
+		# print each number with the punctuation following it 
+		# If it's the last number, then print the joiner before the number
+		# If the size of the array is less than 2, don't print punctuation. 
+			# For the first element, print just the number
+		# Call the method in the user_choice method
+	
+	
+			
