@@ -46,10 +46,26 @@ def empty_squares(board)
   end
 end
 
+def joinor(choices_array, punctuation = ', ', joiner = 'or') 
+  choices_array.each do |number|
+   
+    if choices_array.last == number
+      print "#{joiner} #{number}"
+   
+    elsif choices_array.size > 2 
+      print "#{number}#{punctuation}"
+   
+    else
+      print "#{number} "
+    end 
+  end
+end 
+
 def player_choice!(board)
   square = ''
   loop do
-    prompt "Choose a square (#{empty_squares(board).join(',')})"
+    prompt "Choose a square: #{joinor(empty_squares(board))}"
+    ##(#{empty_squares(board).join(',')})"
     square = gets.chomp.to_i
 
     break if empty_squares(board).include? square
