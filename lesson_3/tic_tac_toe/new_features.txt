@@ -37,6 +37,37 @@
 		# Join the new array into a string.
 		# Call this method in the player_choice! method
 	
-	
-	
+2. Keeping Score 
+		
+		PEDAC
+		
+		Undertanding the Problem:
+			Input: string from detect_winner method
+			Output: integer values 
+			
+			# Explicit Requirements:
+				# You need to increase values based on whether or not the player won or the computer won 
+				
+			# Implicit Requirements: 
+				# Might be useful to have a SCORE hash at the start keep track of the scores. You can mutate this as you go.
+				
+		Examples:
+			SCORE = {player: 0, computer: 0}
+			
+			if player_won 
+				SCORE[:player] += 1 
+			else 
+				SCORE[:computer] += 1
+			end 
+			
+		# Data Structure: Hash
+		
+		add_score!
+		
+		# Algorithm:
+			# Create a constant SCORE with player and computer as keys and 0, for the initial score, as the values
+			# Create a method that invokes detect_winner 
+			# if detect_winner returns 'player' string, then add 1 to the SCORE hash for player
+			# Else, add 1 to the SCORE hash for the computer.
+			# Display the SCORE at the beginning in a separate method. TBD
 			
