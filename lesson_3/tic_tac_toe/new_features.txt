@@ -71,3 +71,36 @@
 			# Else, add 1 to the SCORE hash for the computer.
 			# Display the SCORE at the beginning in a separate method. TBD
 			
+			
+3. Computer AI Defense 
+
+	PEDAC
+	
+	Understanding the Problem:
+		If the Computer sees that the player has 2 squares in a row, the computer will select the the final square.
+		
+		Input: board and it should iterate through winning lines 
+		Output: It should return a new computer choice which is an integer 
+		
+		Explicit Requirements:
+			# If the the player has two x's in a line, the computer will select the 3rd square as its choice.
+			# The computer needs to check winning lines vs the board. If the lines at the x_marker add up to 2,
+				the computer needs to select the final value in that array.
+			
+		Implicit Requirements:
+			# The computer selects the key value of the hash based on the winning lines array options vs empty choices array
+		
+	Examples:
+		board_values array ==	['X', ' ', 'X']
+		computer chooses the second option using board.key(' ')
+		
+	Data Structure:	hashes and arrays 
+	
+	Algorithm:
+		# Iterate through winning lines 
+		# Take values_at each line
+		# Check to see if the count of x marker is at 2 
+		# If this is the case, the computer selects the key for the ' ' empty space in the board in the line.
+		
+		
+		
