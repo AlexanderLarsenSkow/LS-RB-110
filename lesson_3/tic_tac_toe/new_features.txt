@@ -101,4 +101,42 @@
 		# 
 		
 		
+4. Computer Offense
+
+	PEDAC 
+	
+	Understanding the Problem:
+		If the computer has two O markers in a row based on the winning lines, It should pick the 3rd option next.
 		
+		Computer Offense Method:
+		Input: line array 
+		Output: single integer 
+		
+		Explicit Requirements:
+			# Write a method that splits the input array by what they point at in the hash.
+			# If they point at O markers, leave them alone. Take the option that points at an empty marker
+			# Only make computer_square choose this option if the count of O marker is equal to 2 and the option is an available choice 
+			
+		Implicit Requirements:
+			# Partition is a useful method here.
+			
+		Examples:
+			[1, 2, 3]
+			{1 => ' ', 2 => 'O', 3 => 'O'}
+			
+			after partition => [[1], [2, 3]]
+			Computer should now pick 1 
+			
+		Data Structure: Array and Hash
+		
+		Algorithm:
+			# Create a variable offensive_option that points to a new method COMPUTER_OFFENSE
+			# COMPUTER_OFFENSE
+				# Take the input array and partition it.
+				# Split the array based on whether the number in the array points at an empty marker or an O marker 
+				# After the split, return the single integer in the array that points to the empty marker.
+			# COMPUTER_CHOICE!
+				# Make computer_square equal to offensive_option if a line has 2 O_markers and empty_squares include the integer. 
+		
+		
+	

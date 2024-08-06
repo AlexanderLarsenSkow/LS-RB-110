@@ -90,7 +90,14 @@ def computer_defense(board, line_array)
         board[num] == ' '
       end
   defensive_squares[0][0]
-end   
+end
+
+def computer_offense(board, line_array)
+  offensive_squares = line_array.partition do |num|
+    board[num] == ' '
+  end
+  offensive_squares[0][0]
+end 
 
 def computer_choice!(board)
   computer_square = empty_squares(board).sample
@@ -98,10 +105,14 @@ def computer_choice!(board)
   WINNING_LINES.each do |line|
     #binding.pry
     defensive_option = computer_defense(board, line)
+    offensive_option = computer_offense(board, line)
     board_values = board.values_at(*line)
     
     if board_values.count(X_MARKER) == 2
       computer_square = defensive_option if empty_squares(board).include?(defensive_option)
+    
+    elsif board_values.count(O_MARKER) == 2
+      computer_square = offensive_option if empty_squares(board).include?(offensive_option)
     end
   end 
     
