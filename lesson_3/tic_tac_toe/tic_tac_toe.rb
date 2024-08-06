@@ -83,25 +83,34 @@ def player_choice!(board)
 end
 
 # STEP 3: Getting the Computer's Choice
+require 'pry-byebug'
 
 def computer_defense(board)
-  computer_choice = 0
+  open_squares = []
   WINNING_LINES.each do |line|
-    board_values = board.values_at(*line)
-    
-    if board_values.count(X_MARKER) == 2
-      available_choice = board_values.select {|val| val == INITIAL_MARKER}
+    open_squares = line.partition do |num|
+      board[num] == ' '
     end 
-    
-    computer_choice = board.key(available_choice)
-  end 
-  computer_choice
+  end
+  p open_squares[0]
 end   
 
 def computer_choice!(board)
-  computer_square = empty_squares(board).sample
+  computer_square = 0
+  WINNING_LINES.each do |line|
+    #binding.pry
+    board_values = board.values_at(*line)
+    
+    if board_values.count(X_MARKER) == 2
+      computer_square = computer_defense(board)
+      break
+    
+    else 
+      computer_square = empty_squares(board).sample
+    end 
+  end
   board[computer_square] = O_MARKER
-end
+end 
 
 def full_board?(board)
   empty_squares(board).empty?
