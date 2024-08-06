@@ -85,30 +85,24 @@ end
 # STEP 3: Getting the Computer's Choice
 require 'pry-byebug'
 
-def computer_defense(board)
-  open_squares = []
-  WINNING_LINES.each do |line|
-    open_squares = line.partition do |num|
-      board[num] == ' '
-    end 
-  end
-  p open_squares[0]
+def computer_defense(board, line_array)
+    open_squares = line_array.partition do |num|
+        board[num] == ' '
+      end
+  open_squares[0][0]
 end   
 
 def computer_choice!(board)
-  computer_square = 0
+  computer_square = empty_squares(board).sample
   WINNING_LINES.each do |line|
     #binding.pry
     board_values = board.values_at(*line)
     
     if board_values.count(X_MARKER) == 2
-      computer_square = computer_defense(board)
-      break
+      computer_square = computer_defense(board, line)
+    end
+  end 
     
-    else 
-      computer_square = empty_squares(board).sample
-    end 
-  end
   board[computer_square] = O_MARKER
 end 
 

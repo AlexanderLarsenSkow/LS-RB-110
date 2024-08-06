@@ -77,9 +77,9 @@
 	PEDAC
 	
 	Understanding the Problem:
-		If the Computer sees that the player has 2 squares in a row, the computer will select the the final square.
+		If the Computer sees that the player has 2 squares in a row, the computer will select the final square.
 		
-		Input: board and it should iterate through winning lines 
+		Input: board hash, winning lines array 
 		Output: It should return a new computer choice which is an integer 
 		
 		Explicit Requirements:
@@ -98,9 +98,7 @@
 	
 	Algorithm:
 		# Iterate through winning lines 
-		# Take values_at each line
-		# Check to see if the count of x marker is at 2 
-		# If this is the case, the computer selects the key for the ' ' empty space in the board in the line.
+		# 
 		
 		
 		
