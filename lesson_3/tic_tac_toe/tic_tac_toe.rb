@@ -86,20 +86,22 @@ end
 require 'pry-byebug'
 
 def computer_defense(board, line_array)
-    open_squares = line_array.partition do |num|
+    defensive_squares = line_array.partition do |num|
         board[num] == ' '
       end
-  open_squares[0][0]
+  defensive_squares[0][0]
 end   
 
 def computer_choice!(board)
   computer_square = empty_squares(board).sample
+
   WINNING_LINES.each do |line|
     #binding.pry
+    defensive_option = computer_defense(board, line)
     board_values = board.values_at(*line)
     
     if board_values.count(X_MARKER) == 2
-      computer_square = computer_defense(board, line)
+      computer_square = defensive_option if empty_squares(board).include?(defensive_option)
     end
   end 
     
@@ -156,7 +158,7 @@ loop do
   else
     prompt("It's a tie!")
   end
-
+  
   prompt("Play again? Y / N")
   answer = gets.chomp
 
