@@ -136,7 +136,37 @@
 				# Split the array based on whether the number in the array points at an empty marker or an O marker 
 				# After the split, return the single integer in the array that points to the empty marker.
 			# COMPUTER_CHOICE!
-				# Make computer_square equal to offensive_option if a line has 2 O_markers and empty_squares include the integer. 
+				# Make computer_square equal to offensive_option if a line has 2 O_markers and empty_squares include the integer.
+				
+				
+	5. Main Loop Refinements 
 		
+		PEDAC 
+		
+		Problem
+			# Refine the main loop so that there is a generic method for both player and computer. 
+		
+			# Method Input: integers from player_choice and computer_choice 
+			# Method Output: Should make the output mutate the board hash
+		
+			# Explicit Requirements:
+				# Method should generalize the players and make it so we don't need to break after every player / computer method call.
+				
+			# Implicit Requirements:
+				# Method needs to take integer values and change those values in the hash.
+				
+		Examples:
+			# board[player_choice()] = X_MARKER
+			#	board[computer_choice()] = O_MARKER
+				
+		Data Structure: Hash
+		
+		Algorithm:
+			# If alternate player returns 1
+				# Call player_choice
+				# Mutate the board
+			# Else it equals 0
+				#	Call computer_choice
+				# Mutate the board
 		
 	
