@@ -85,34 +85,28 @@ end
 # STEP 3: Getting the Computer's Choice
 require 'pry-byebug'
 
-def computer_defense(board, line_array)
-    defensive_squares = line_array.partition do |num|
+def computer_ai(board, line_array)
+    winning_squares = line_array.partition do |num|
         board[num] == ' '
       end
-  defensive_squares[0][0]
+  winning_squares[0][0]
 end
 
-def computer_offense(board, line_array)
-  offensive_squares = line_array.partition do |num|
-    board[num] == ' '
-  end
-  offensive_squares[0][0]
-end 
-
 def computer_choice!(board)
-  computer_square = empty_squares(board).sample
+  choices = empty_squares(board)
+  computer_square = choices.sample
 
   WINNING_LINES.each do |line|
     #binding.pry
-    defensive_option = computer_defense(board, line)
-    offensive_option = computer_offense(board, line)
+    smart_option = computer_ai(board, line)
     board_values = board.values_at(*line)
     
-    if board_values.count(X_MARKER) == 2
-      computer_square = defensive_option if empty_squares(board).include?(defensive_option)
+    if board_values.count(X_MARKER) == 2  
+      computer_square = smart_option if choices.include?(smart_option)
     
     elsif board_values.count(O_MARKER) == 2
-      computer_square = offensive_option if empty_squares(board).include?(offensive_option)
+      computer_square = smart_option if choices.include?(smart_option)
+      break
     end
   end 
     
