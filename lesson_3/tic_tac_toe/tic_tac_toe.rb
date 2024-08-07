@@ -95,6 +95,7 @@ end
 def computer_choice!(board)
   choices = empty_squares(board)
   computer_square = choices.sample
+  computer_square = 5 if choices.include?(5)
 
   WINNING_LINES.each do |line|
     #binding.pry
@@ -107,7 +108,7 @@ def computer_choice!(board)
     elsif board_values.count(O_MARKER) == 2
       computer_square = smart_option if choices.include?(smart_option)
       break
-    end
+    end 
   end 
     
   board[computer_square] = O_MARKER
