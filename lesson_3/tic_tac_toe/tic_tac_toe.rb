@@ -114,6 +114,26 @@ def computer_choice!(board)
   board[computer_square] = O_MARKER
 end 
 
+def alternate_player(board)
+  first = 1
+  second = 2
+  if board.size.odd?
+    first
+  else 
+    second
+  end 
+end 
+
+def place_piece!(board)
+  if alternate_player(board) == 1
+    player_choice!(board)
+  
+  else 
+    computer_choice!(board)
+  end 
+    
+end 
+
 def full_board?(board)
   empty_squares(board).empty?
 end
