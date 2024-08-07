@@ -98,7 +98,6 @@ def computer_choice!(board)
   computer_square = 5 if choices.include?(5)
 
   WINNING_LINES.each do |line|
-    #binding.pry
     smart_option = computer_ai(board, line)
     board_values = board.values_at(*line)
     
@@ -117,21 +116,20 @@ end
 def alternate_player(board)
   first = 1
   second = 2
-  if board.size.odd?
+  if board.values.count(INITIAL_MARKER).odd?
     first
   else 
     second
   end 
 end 
 
-def place_piece!(board)
-  if alternate_player(board) == 1
+def place_piece!(board, current_player)
+  if current_player == 1
     player_choice!(board)
   
   else 
     computer_choice!(board)
   end 
-    
 end 
 
 def full_board?(board)
@@ -170,9 +168,8 @@ loop do
 
   loop do
     display_board(board)
-    player_choice!(board)
-    break if someone_won?(board) || full_board?(board)
-    computer_choice!(board)
+    current_player = alternate_player(board)
+    place_piece!(board, current_player)
     break if someone_won?(board) || full_board?(board)
   end
   system "clear"
