@@ -54,10 +54,10 @@ def who_first_player
     answer = gets.chomp.capitalize
     
     if answer.start_with?("Y")
-      return 1
+      return 'Player'
     
     elsif answer.start_with?("N") 
-      return 2
+      return 'Computer'
     
     else 
       prompt("Please enter yes or no")
@@ -66,7 +66,7 @@ def who_first_player
 end 
 
 def who_first_computer
-  [1, 2].sample
+  ['Player', 'Computer'].sample
 end 
 
 def who_first(player_decision, computer_decision)
@@ -75,12 +75,12 @@ def who_first(player_decision, computer_decision)
     player_decision
     
   else
-    [1, 2].sample 
+    ['Player', 'Computer'].sample 
   end 
 end 
 
 def display_who_first(final_decision)
-  if final_decision == 1 
+  if final_decision == 'Player' 
     prompt("Alright, you will go first!")
   else 
     prompt("Alright, the computer will go first!")
@@ -155,9 +155,15 @@ def computer_choice!(board)
   board[computer_square] = O_MARKER
 end 
 
-def alternate_player(board)
-  first = 1
-  second = 2
+def alternate_player(board, who_first)
+  if who_first == 'Player' 
+    first = 'Player'
+    second = 'Computer'
+  else 
+    first = 'Computer'
+    second = 'Player'
+  end 
+  
   if board.values.count(INITIAL_MARKER).odd?
     first
   else 
@@ -166,7 +172,7 @@ def alternate_player(board)
 end 
 
 def place_piece!(board, current_player)
-  if current_player == 1
+  if current_player == 'Player'
     player_choice!(board)
   
   else 
@@ -213,7 +219,7 @@ loop do
 
   loop do
     display_board(board)
-    current_player = alternate_player(board)
+    current_player = alternate_player(board, decision)
     place_piece!(board, current_player)
     break if someone_won?(board) || full_board?(board)
   end
