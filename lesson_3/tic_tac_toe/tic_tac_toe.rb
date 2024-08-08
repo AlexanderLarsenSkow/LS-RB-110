@@ -49,6 +49,7 @@ end
 # Asking the User and Computer who will go first
 
 def who_first_player
+  system "clear"
   loop do 
     prompt("Do you want to go first?")
     answer = gets.chomp.capitalize
@@ -71,10 +72,10 @@ end
 
 def display_computer_decision(play_decision, comp_decision)
   if comp_decision == 'Player' && play_decision == comp_decision
-    prompt("The computer agrees with you! You should go first!")
+    prompt("For some reason, the computer agrees with you! You will go first!")
   
   elsif comp_decision == 'Player' && play_decision != comp_decision
-    prompt("The computer wants you to go first!")
+    prompt("The computer wants you to go first! Something's screwy here.")
     
   elsif comp_decision == 'Computer' && play_decision == comp_decision
     prompt("The computer agrees with you! They will go first.")
@@ -95,11 +96,26 @@ def who_first(player_decision, computer_decision)
   end 
 end 
 
-def display_who_first(final_decision)
-  if final_decision == 'Player' 
-    prompt("You will go first!")
-  else 
-    prompt("The computer will start!")
+def display_who_first(final_decision, play_decision, comp_decision)
+  if final_decision == 'Player' && play_decision != comp_decision
+    prompt("You won the toss. You will go first!")
+  
+  elsif final_decision == 'Computer' && play_decision != comp_decision
+    prompt("The computer won the toss. They will go first!")
+  end 
+end
+
+def game_start 
+  loop do 
+    prompt("Start Game?")
+    answer = gets.chomp.capitalize
+    
+    if answer.start_with?('Y') || answer == 'Start'
+      break 
+    end 
+    
+    prompt("Enter yes or start to begin the game.")
+    
   end 
 end 
 
@@ -229,14 +245,16 @@ end
 
 loop do
   board = initialize_board
-  system "clear"
+
   player_decision = who_first_player
   computer_decision = who_first_computer
-  
   display_computer_decision(player_decision, computer_decision)
+  
   decision = who_first(player_decision, computer_decision)
-  display_who_first(decision)
-
+  display_who_first(decision, player_decision, computer_decision)
+  
+  game_start
+  
   loop do
     display_board(board)
     current_player = alternate_player(board, decision)
