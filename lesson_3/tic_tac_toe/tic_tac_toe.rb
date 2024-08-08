@@ -69,6 +69,22 @@ def who_first_computer
   ['Player', 'Computer'].sample
 end 
 
+def display_computer_decision(play_decision, comp_decision)
+  if comp_decision == 'Player' && play_decision == comp_decision
+    prompt("The computer agrees with you! You should go first!")
+  
+  elsif comp_decision == 'Player' && play_decision != comp_decision
+    prompt("The computer wants you to go first!")
+    
+  elsif comp_decision == 'Computer' && play_decision == comp_decision
+    prompt("The computer agrees with you! They will go first.")
+  
+  else 
+    prompt("The computer wants to go first. Surprising? I think not!")
+
+  end 
+end 
+
 def who_first(player_decision, computer_decision)
   
   if player_decision == computer_decision
@@ -81,9 +97,9 @@ end
 
 def display_who_first(final_decision)
   if final_decision == 'Player' 
-    prompt("Alright, you will go first!")
+    prompt("You will go first!")
   else 
-    prompt("Alright, the computer will go first!")
+    prompt("The computer will start!")
   end 
 end 
 
@@ -213,8 +229,12 @@ end
 
 loop do
   board = initialize_board
+  system "clear"
+  player_decision = who_first_player
+  computer_decision = who_first_computer
   
-  decision = who_first(who_first_player, who_first_computer)
+  display_computer_decision(player_decision, computer_decision)
+  decision = who_first(player_decision, computer_decision)
   display_who_first(decision)
 
   loop do
