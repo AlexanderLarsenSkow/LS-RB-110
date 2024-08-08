@@ -169,4 +169,22 @@
 				#	Call computer_choice
 				# Mutate the board
 		
+6. Player or Computer First
+	Ask the player if they want to go first 
+	Sample the computer from an array of 1 or 0
+	
+	If the player says "Yes, I want to go first" return 1 
+	If the computer returns 1, they pick player first.
+	If computer returns 0, they pick computer first.
+	
+	If player and computer agree, then that is the pick.
+	If player and computer disagree, place the return values in an array and sample that array.
+	
+	
+	Question: Where should this go in the main loop? I think it should happen every time you play through a round, so you might 
+	switch each time. Then set up conditionals for each turn. The loops are switched if
+	
+	Method: who_first_player?
+	Method: who_first_computer?
+	
 	
