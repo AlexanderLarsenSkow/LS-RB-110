@@ -17,6 +17,34 @@ def prompt(message)
   puts "<< #{message}"
 end
 
+def display_teaching_board
+  puts "      |           |       "
+  puts "  1   |     2     |   3   "
+  puts "      |           |       "
+  puts "------+-----------+------ "
+  puts "      |           |       "
+  puts "  4   |     5     |   6   "
+  puts "      |           |       "
+  puts "------+-----------+------ "
+  puts "      |           |       "
+  puts "  7   |     8     |   9   "
+  puts "      |           |       "
+end
+ 
+
+def intro 
+  
+  prompt("Welcome to Tic Tac Toe. You will play against a Computer.")
+  prompt("Enter a number to pick a square. First to 3 squares in a row wins the round.")
+  loop do 
+    prompt("Do you understand?")
+    answer = gets.chomp.capitalize
+  
+    break if answer.start_with?('Y')
+    prompt("Enter yes.")
+  end 
+end 
+
 # Step 1: Display the Board
 
 # rubocop: disable Metrics/AbcSize
@@ -242,6 +270,9 @@ def add_score!(board)
 end 
 
 # Main Game
+
+display_teaching_board
+intro
 
 loop do
   board = initialize_board
