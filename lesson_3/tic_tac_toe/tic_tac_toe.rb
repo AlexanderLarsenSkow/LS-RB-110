@@ -46,6 +46,47 @@ def initialize_board
   new_board
 end
 
+# Asking the User and Computer who will go first
+
+def who_first_player
+  loop do 
+    prompt("Do you want to go first?")
+    answer = gets.chomp.capitalize
+    
+    if answer.start_with?("Y")
+      return 1
+    
+    elsif answer.start_with?("N") 
+      return 2
+    
+    else 
+      prompt("Please enter yes or no")
+    end 
+  end 
+end 
+
+def who_first_computer
+  [1, 2].sample
+end 
+
+def who_first(player_decision, computer_decision)
+  
+  if player_decision == computer_decision
+    player_decision
+    
+  else
+    [1, 2].sample 
+  end 
+end 
+
+def display_who_first(final_decision)
+  if final_decision == 1 
+    prompt("Alright, you will go first!")
+  else 
+    prompt("Alright, the computer will go first!")
+  end 
+end 
+
 # Step 2: Getting User Choice
 
 def empty_squares(board)
@@ -87,7 +128,7 @@ require 'pry-byebug'
 
 def computer_ai(board, line_array)
     winning_squares = line_array.partition do |num|
-        board[num] == ' '
+        board[num] == INITIAL_MARKER
       end
   winning_squares[0][0]
 end
@@ -166,6 +207,9 @@ end
 
 loop do
   board = initialize_board
+  
+  decision = who_first(who_first_player, who_first_computer)
+  display_who_first(decision)
 
   loop do
     display_board(board)
