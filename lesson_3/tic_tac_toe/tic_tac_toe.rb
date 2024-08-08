@@ -98,14 +98,15 @@ def computer_choice!(board)
   computer_square = 5 if choices.include?(5)
 
   WINNING_LINES.each do |line|
+    #binding.pry
     smart_option = computer_ai(board, line)
     board_values = board.values_at(*line)
     
-    if board_values.count(X_MARKER) == 2  
-      computer_square = smart_option if choices.include?(smart_option)
+    if board_values.count(X_MARKER) == 2 && choices.include?(smart_option)  
+      computer_square = smart_option 
     
-    elsif board_values.count(O_MARKER) == 2
-      computer_square = smart_option if choices.include?(smart_option)
+    elsif board_values.count(O_MARKER) == 2 && choices.include?(smart_option)
+      computer_square = smart_option 
       break
     end 
   end 
@@ -181,6 +182,7 @@ loop do
   else
     prompt("It's a tie!")
   end
+  
   
   prompt("Play again? Y / N")
   answer = gets.chomp
