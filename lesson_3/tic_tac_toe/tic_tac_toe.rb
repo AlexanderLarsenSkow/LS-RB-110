@@ -175,11 +175,11 @@ end
 def player_choice!(board)
   square = ''
   loop do
-    prompt "Choose a square: #{joinor(empty_squares(board))}"
+    prompt(format(DISPLAYS['player_square'], joinor(empty_squares(board)))) 
     square = gets.chomp.to_i
 
     break if empty_squares(board).include? square
-    prompt "Not a valid choice."
+    prompt(DISPLAYS['player_square_error'])
   end
   board[square] = X_MARKER
 end

@@ -1,6 +1,6 @@
 # Methods with Variables in Displays:
 # player_choice!
-# display_score
+# display_score DONE
 # display_board
 # # No variables, but annoying, display_teaching_board
 
@@ -22,5 +22,8 @@ comp_won_toss: "The computer won the toss. They will go first!"
 
 game_start: "Start Game?"
 game_start_error: "Enter yes or start to begin the game."
+
+player_square: "Choose a square: %s"
+player_square_error: "Not a valid choice. Pick an available square."
 
 scores: "You: %s  Computer:  %s"
