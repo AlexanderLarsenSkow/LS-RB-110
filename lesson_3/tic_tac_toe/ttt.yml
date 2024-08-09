@@ -1,7 +1,11 @@
+# Methods with Variables in Displays:
+# player_choice!
+# display_score
+# display_board
+# # No variables, but annoying, display_teaching_board
+
 welcome: "Welcome to Tic Tac Toe! Test your skills against a battle-hardened AI."
-
 rules: "Enter a number to pick a square. First to 3 squares in a row wins the round."
-
 ready: "Ready?"
 ready_error: "Enter yes if you're ready."
 
@@ -18,3 +22,5 @@ comp_won_toss: "The computer won the toss. They will go first!"
 
 game_start: "Start Game?"
 game_start_error: "Enter yes or start to begin the game."
+
+scores: "You: %s  Computer:  %s"

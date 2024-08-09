@@ -272,7 +272,7 @@ end
 
 def display_score
   system "clear"
-  prompt("You : #{SCORE[:player]} Computer: #{SCORE[:computer]}")
+  prompt(format(DISPLAYS['scores'], SCORE[:player], SCORE[:computer]))
   prompt(" ")
 end 
 
