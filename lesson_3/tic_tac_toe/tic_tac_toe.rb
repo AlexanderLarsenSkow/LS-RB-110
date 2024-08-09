@@ -17,7 +17,7 @@ SCORE = {
 }
 
 def prompt(message)
-  puts "<< #{message}"
+  puts "<< #{message}" 
 end
 
 def display_teaching_board
@@ -50,9 +50,11 @@ end
 # Step 1: Display the Board
 
 # rubocop: disable Metrics/AbcSize
+ 
 def display_board(brd)
-  puts "You: X		Computer: O"
   system "clear"
+  puts "You: X		Computer: O"
+  puts " "
   puts "      |           |       "
   puts "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
   puts "      |           |       "
@@ -65,7 +67,7 @@ def display_board(brd)
   puts "  #{brd[7]}   |     #{brd[8]}     |   #{brd[9]}      "
   puts "      |           |       "
   puts ""
-  puts "Player: #{SCORE[:player]}      Computer: #{SCORE[:computer]}"
+  puts(format(DISPLAYS['scores_under_board'], SCORE[:player], SCORE[:computer]))
   puts ""
 end
 # rubocop: enable Metrics/AbcSize
@@ -184,9 +186,6 @@ def player_choice!(board)
   board[square] = X_MARKER
 end
 
-# STEP 3: Getting the Computer's Choice
-require 'pry-byebug'
-
 def computer_ai(board, line_array)
     winning_squares = line_array.partition do |num|
         board[num] == INITIAL_MARKER
@@ -200,7 +199,6 @@ def computer_choice!(board)
   computer_square = 5 if choices.include?(5)
 
   WINNING_LINES.each do |line|
-    #binding.pry
     smart_option = computer_ai(board, line)
     board_values = board.values_at(*line)
     
@@ -272,8 +270,8 @@ end
 
 def display_score
   system "clear"
-  prompt(format(DISPLAYS['scores'], SCORE[:player], SCORE[:computer]))
-  prompt(" ")
+  prompt(format(DISPLAYS['scores_between_rounds'], SCORE[:player], SCORE[:computer]))
+  puts " "
 end 
 
 # Main Game
@@ -283,8 +281,8 @@ intro
 
 loop do
   board = initialize_board
-  
   display_score
+  
   player_decision = who_first_player
   computer_decision = who_first_computer
   display_computer_decision(player_decision, computer_decision)
@@ -305,16 +303,16 @@ loop do
 
   if someone_won?(board)
     add_score!(board)
-    prompt("#{detect_winner(board)} won!")
+    prompt("#{detect_winner(board)} #{DISPLAYS['x_won']}")
   else
-    prompt("It's a tie!")
+    prompt(DISPLAYS['tie'])
   end
   
   
-  prompt("Play again? Y / N")
+  prompt(DISPLAYS['play_again'])
   answer = gets.chomp
 
   break unless answer.upcase.start_with?('Y')
 end
 
-prompt("Thanks for playing!")
+prompt([DISPLAYS['thanks']])
