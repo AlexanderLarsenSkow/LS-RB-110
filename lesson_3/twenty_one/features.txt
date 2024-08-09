@@ -1,0 +1,51 @@
+Game Rules:
+	# The idea is like Blackjack. 
+	# If you hit 21, you have the best possible hand. If you go over 21, you lose.
+	# Take a deck of cards
+	# Start with 2 random cards that are "dealt" to you.
+	# Player vs. the dealer
+	# Player decides to hit or stay; if they hit, they get a new card.
+	# Dealer decides to hit or stay based on their value. 16 and under, they should hit. 17 and over they should stay.
+
+Initializing the Deck
+
+Understanding the Problem:
+	# Expected Input: Array of suits and Array of values, potentially an incrementing value? I'm not sure.
+	# Expected Output: Hash with each card added to a suit pointing at their values.
+	
+	# Explicit Requirements:
+		# Write a method that initializes a deck of 52 cards, each with a different suit.
+		# The keys should be the cards and the values should be the card value in Twenty One.
+		# Number card values are their own number. 
+		# Face card values are worth 10.
+		# Aces are worth 11.
+		
+	# Implicit Requirements:
+		# You need SUITS
+		# You need VALUES
+		# You need CARDS
+	
+Examples:
+	{"One of Hearts" => 1, "Two of Hearts" => 2}
+	
+Data Structure:
+	# Arrays for CONSTANT values (suits, card values)
+	# Hash as the return value.
+		
+Algorithm:
+	# Declare a Cards constant with every card in an array.
+	# Declare a suits constant pointing to an array of strings with the suit.
+	
+		METHOD
+	# Create an empty hash object
+	# Create a variable card_value equal to 1
+	# Iterate through the cards array 
+	# Iterate through the suits array
+	# Use string interpolation to point at the card_value in the empty hash
+	# Increment card_value by 1 
+	# If the card equals Jack, Queen, or King, the card value is 10
+	# If the card equals Ace, the card value is 11
+	# Return the new hash.
+	
+		
+		
