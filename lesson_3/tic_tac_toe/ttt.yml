@@ -1,0 +1,20 @@
+welcome: "Welcome to Tic Tac Toe! Test your skills against a battle-hardened AI."
+
+rules: "Enter a number to pick a square. First to 3 squares in a row wins the round."
+
+ready: "Ready?"
+ready_error: "Enter yes if you're ready."
+
+first_question: "Do you want to go first?"
+first_qusetion_error: "Please enter yes or no."
+
+agree_player_first: "For some reason, the computer agrees with you! You will go first!"
+disagree_player_first: "The computer wants you to go first! Something's screwy here."
+agree_comp_first: "The computer agrees with you! They will go first."
+disagree_comp_first: "The computer wants to go first. Surprising? I think not!"
+
+player_won_toss: "You won the toss. You will go first!"
+comp_won_toss: "The computer won the toss. They will go first!"
+
+game_start: "Start Game?"
+game_start_error: "Enter yes or start to begin the game."

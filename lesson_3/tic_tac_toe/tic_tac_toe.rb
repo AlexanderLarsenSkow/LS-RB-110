@@ -1,3 +1,6 @@
+require 'yaml'
+DISPLAYS = YAML.load_file('ttt.yml')
+
 INITIAL_MARKER = ' '
 X_MARKER = 'X'
 O_MARKER = 'O'
@@ -33,15 +36,14 @@ end
  
 
 def intro 
-  
-  prompt("Welcome to Tic Tac Toe! Test your skills against a battle-hardened AI.")
-  prompt("Enter a number to pick a square. First to 3 squares in a row wins the round.")
+  prompt(DISPLAYS['welcome'])
+  prompt(DISPLAYS['rules'])
   loop do 
-    prompt("Ready?")
+    prompt(DISPLAYS["ready"])
     answer = gets.chomp.capitalize
   
     break if answer.start_with?('Y')
-    prompt("Enter yes.")
+    prompt(DISPLAYS["ready_error"])
   end 
 end 
 
@@ -78,7 +80,7 @@ end
 
 def who_first_player
   loop do 
-    prompt("Do you want to go first?")
+    prompt(DISPLAYS["first_question"])
     answer = gets.chomp.capitalize
     
     if answer.start_with?("Y")
@@ -88,7 +90,7 @@ def who_first_player
       return 'Computer'
     
     else 
-      prompt("Please enter yes or no")
+      prompt(DISPLAYS["first_question_error"])
     end 
   end 
 end 
@@ -99,16 +101,16 @@ end
 
 def display_computer_decision(play_decision, comp_decision)
   if comp_decision == 'Player' && play_decision == comp_decision
-    prompt("For some reason, the computer agrees with you! You will go first!")
+    prompt(DISPLAYS["agree_player_first"])
   
   elsif comp_decision == 'Player' && play_decision != comp_decision
-    prompt("The computer wants you to go first! Something's screwy here.")
+    prompt(DISPLAYS["disagree_player_first"])
     
   elsif comp_decision == 'Computer' && play_decision == comp_decision
-    prompt("The computer agrees with you! They will go first.")
+    prompt(DISPLAYS["agree_comp_first"])
   
   else 
-    prompt("The computer wants to go first. Surprising? I think not!")
+    prompt(DISPLAYS["disagree_comp_first"])
 
   end 
 end 
@@ -125,23 +127,23 @@ end
 
 def display_who_first(final_decision, play_decision, comp_decision)
   if final_decision == 'Player' && play_decision != comp_decision
-    prompt("You won the toss. You will go first!")
+    prompt(DISPLAYS["player_won_toss"])
   
   elsif final_decision == 'Computer' && play_decision != comp_decision
-    prompt("The computer won the toss. They will go first!")
+    prompt(DISPLAYS['comp_won_toss'])
   end 
 end
 
 def game_start 
   loop do 
-    prompt("Start Game?")
+    prompt(DISPLAYS['game_start'])
     answer = gets.chomp.capitalize
     
     if answer.start_with?('Y') || answer == 'Start'
       break 
     end 
     
-    prompt("Enter yes or start to begin the game.")
+    prompt(DISPLAY['game_start_error'])
     
   end 
 end 
