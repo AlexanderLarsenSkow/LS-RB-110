@@ -54,20 +54,20 @@ end
 
 # rubocop: disable Metrics/AbcSize
 
-def display_board(brd)
+def display_board(board)
   system "clear"
   puts DISPLAYS['x_o']
   puts " "
   puts "      |           |       "
-  puts "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
+  puts "  #{board[1]}   |     #{board[2]}     |   #{board[3]}      "
   puts "      |           |       "
   puts "------+-----------+------ "
   puts "      |           |       "
-  puts "  #{brd[4]}   |     #{brd[5]}     |   #{brd[6]}      "
+  puts "  #{board[4]}   |     #{board[5]}     |   #{board[6]}      "
   puts "      |           |       "
   puts "------+-----------+------ "
   puts "      |           |       "
-  puts "  #{brd[7]}   |     #{brd[8]}     |   #{brd[9]}      "
+  puts "  #{board[7]}   |     #{board[8]}     |   #{board[9]}      "
   puts "      |           |       "
   display_score_under_board
 end
