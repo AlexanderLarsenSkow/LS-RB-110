@@ -6,6 +6,8 @@
 
 # board
 
+x_o: "You: X		Computer: O"
+
 welcome: "Welcome to Tic Tac Toe! Test your skills against a battle-hardened AI."
 rules: "Enter a number to pick a square. First to 3 squares in a row wins the round."
 ready: "Ready?"

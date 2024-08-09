@@ -17,7 +17,7 @@ SCORE = {
 }
 
 def prompt(message)
-  puts "<< #{message}" 
+  puts "<< #{message}"
 end
 
 def display_teaching_board
@@ -33,27 +33,30 @@ def display_teaching_board
   puts "  7   |     8     |   9   "
   puts "      |           |       "
 end
- 
 
-def intro 
+def intro
   prompt(DISPLAYS['welcome'])
   prompt(DISPLAYS['rules'])
-  loop do 
+  loop do
     prompt(DISPLAYS["ready"])
     answer = gets.chomp.capitalize
-  
+
     break if answer.start_with?('Y')
     prompt(DISPLAYS["ready_error"])
-  end 
-end 
+  end
+end
 
-# Step 1: Display the Board
+def display_score_under_board
+  puts " "
+  puts(format(DISPLAYS['scores_under_board'], SCORE[:player], SCORE[:computer]))
+  puts " "
+end
 
 # rubocop: disable Metrics/AbcSize
- 
+
 def display_board(brd)
   system "clear"
-  puts "You: X		Computer: O"
+  puts DISPLAYS['x_o']
   puts " "
   puts "      |           |       "
   puts "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
@@ -66,9 +69,7 @@ def display_board(brd)
   puts "      |           |       "
   puts "  #{brd[7]}   |     #{brd[8]}     |   #{brd[9]}      "
   puts "      |           |       "
-  puts ""
-  puts(format(DISPLAYS['scores_under_board'], SCORE[:player], SCORE[:computer]))
-  puts ""
+  display_score_under_board
 end
 # rubocop: enable Metrics/AbcSize
 
@@ -78,79 +79,73 @@ def initialize_board
   new_board
 end
 
-# Asking the User and Computer who will go first
-
 def who_first_player
-  loop do 
+  loop do
     prompt(DISPLAYS["first_question"])
     answer = gets.chomp.capitalize
-    
+
     if answer.start_with?("Y")
       return 'Player'
-    
-    elsif answer.start_with?("N") 
+
+    elsif answer.start_with?("N")
       return 'Computer'
-    
-    else 
+
+    else
       prompt(DISPLAYS["first_question_error"])
-    end 
-  end 
-end 
+    end
+  end
+end
 
 def who_first_computer
   ['Player', 'Computer'].sample
-end 
+end
 
 def display_computer_decision(play_decision, comp_decision)
   if comp_decision == 'Player' && play_decision == comp_decision
     prompt(DISPLAYS["agree_player_first"])
-  
+
   elsif comp_decision == 'Player' && play_decision != comp_decision
     prompt(DISPLAYS["disagree_player_first"])
-    
+
   elsif comp_decision == 'Computer' && play_decision == comp_decision
     prompt(DISPLAYS["agree_comp_first"])
-  
-  else 
+
+  else
     prompt(DISPLAYS["disagree_comp_first"])
 
-  end 
-end 
+  end
+end
 
 def who_first(player_decision, computer_decision)
-  
   if player_decision == computer_decision
     player_decision
-    
+
   else
-    ['Player', 'Computer'].sample 
-  end 
-end 
+    ['Player', 'Computer'].sample
+  end
+end
 
 def display_who_first(final_decision, play_decision, comp_decision)
   if final_decision == 'Player' && play_decision != comp_decision
     prompt(DISPLAYS["player_won_toss"])
-  
+
   elsif final_decision == 'Computer' && play_decision != comp_decision
     prompt(DISPLAYS['comp_won_toss'])
-  end 
+  end
 end
 
-def game_start 
-  loop do 
+def game_start
+  loop do
     prompt(DISPLAYS['game_start'])
     answer = gets.chomp.capitalize
-    
-    if answer.start_with?('Y') || answer == 'Start'
-      break 
-    end 
-    
-    prompt(DISPLAY['game_start_error'])
-    
-  end 
-end 
 
-# Step 2: Getting User Choice
+    if answer.start_with?('Y') || answer == 'Start'
+      break
+    end
+
+    prompt(DISPLAY['game_start_error'])
+  end
+end
 
 def empty_squares(board)
   board.keys.select do |num|
@@ -158,26 +153,25 @@ def empty_squares(board)
   end
 end
 
-def joinor(choices_array, punctuation = ', ', joiner = 'or') 
+def joinor(choices_array, punctuation = ', ', joiner = 'or')
   choices = choices_array.map do |number|
-   
     if choices_array.last == number
-       "#{joiner} #{number}"
-   
-    elsif choices_array.size > 2 
+      "#{joiner} #{number}"
+
+    elsif choices_array.size > 2
       "#{number}#{punctuation}"
-   
+
     else
       "#{number} "
-    end 
+    end
   end
   choices.join
-end 
+end
 
 def player_choice!(board)
   square = ''
   loop do
-    prompt(format(DISPLAYS['player_square'], joinor(empty_squares(board)))) 
+    prompt(format(DISPLAYS['player_square'], joinor(empty_squares(board))))
     square = gets.chomp.to_i
 
     break if empty_squares(board).include? square
@@ -187,9 +181,9 @@ def player_choice!(board)
 end
 
 def computer_ai(board, line_array)
-    winning_squares = line_array.partition do |num|
-        board[num] == INITIAL_MARKER
-      end
+  winning_squares = line_array.partition do |num|
+    board[num] == INITIAL_MARKER
+  end
   winning_squares[0][0]
 end
 
@@ -201,43 +195,43 @@ def computer_choice!(board)
   WINNING_LINES.each do |line|
     smart_option = computer_ai(board, line)
     board_values = board.values_at(*line)
-    
-    if board_values.count(X_MARKER) == 2 && choices.include?(smart_option)  
-      computer_square = smart_option 
-    
+
+    if board_values.count(X_MARKER) == 2 && choices.include?(smart_option)
+      computer_square = smart_option
+
     elsif board_values.count(O_MARKER) == 2 && choices.include?(smart_option)
-      computer_square = smart_option 
+      computer_square = smart_option
       break
-    end 
-  end 
-    
+    end
+  end
+
   board[computer_square] = O_MARKER
-end 
+end
 
 def alternate_player(board, who_first)
-  if who_first == 'Player' 
+  if who_first == 'Player'
     first = 'Player'
     second = 'Computer'
-  else 
+  else
     first = 'Computer'
     second = 'Player'
-  end 
-  
+  end
+
   if board.values.count(INITIAL_MARKER).odd?
     first
-  else 
+  else
     second
-  end 
-end 
+  end
+end
 
 def place_piece!(board, current_player)
   if current_player == 'Player'
     player_choice!(board)
-  
-  else 
+
+  else
     computer_choice!(board)
-  end 
-end 
+  end
+end
 
 def full_board?(board)
   empty_squares(board).empty?
@@ -265,14 +259,15 @@ def add_score!(board)
     SCORE[:player] += 1
   else
     SCORE[:computer] += 1
-  end 
-end 
+  end
+end
 
 def display_score
   system "clear"
-  prompt(format(DISPLAYS['scores_between_rounds'], SCORE[:player], SCORE[:computer]))
+  prompt(format(DISPLAYS['scores_between_rounds'], SCORE[:player],
+                SCORE[:computer]))
   puts " "
-end 
+end
 
 # Main Game
 
@@ -282,16 +277,16 @@ intro
 loop do
   board = initialize_board
   display_score
-  
+
   player_decision = who_first_player
   computer_decision = who_first_computer
   display_computer_decision(player_decision, computer_decision)
-  
+
   decision = who_first(player_decision, computer_decision)
   display_who_first(decision, player_decision, computer_decision)
-  
+
   game_start
-  
+
   loop do
     display_board(board)
     current_player = alternate_player(board, decision)
@@ -307,12 +302,11 @@ loop do
   else
     prompt(DISPLAYS['tie'])
   end
-  
-  
+
   prompt(DISPLAYS['play_again'])
   answer = gets.chomp
 
   break unless answer.upcase.start_with?('Y')
 end
 
-prompt([DISPLAYS['thanks']])
+prompt(DISPLAYS['thanks'])
