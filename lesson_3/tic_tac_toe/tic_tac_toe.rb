@@ -34,10 +34,10 @@ end
 
 def intro 
   
-  prompt("Welcome to Tic Tac Toe. You will play against a Computer.")
+  prompt("Welcome to Tic Tac Toe! Test your skills against a battle-hardened AI.")
   prompt("Enter a number to pick a square. First to 3 squares in a row wins the round.")
   loop do 
-    prompt("Do you understand?")
+    prompt("Ready?")
     answer = gets.chomp.capitalize
   
     break if answer.start_with?('Y')
