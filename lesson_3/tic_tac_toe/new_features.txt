@@ -188,3 +188,47 @@
 	Method: who_first_computer?
 	
 	
+	
+7. How to programatically create the board:
+	 
+	 PEDAC
+	 
+	 Understanding the Problem:
+		# Write a a method that creates a tic tac toe board programatically. That is, we don't manually build it with a series of puts
+			methods.
+		# The board should also contain the values from the board_hash. So, the first square has the value board[1], then board[2], 
+			and so on. Each square should be exactly in the middle of the board.
+			
+		# Expected Input: board hash
+		# Expected Output: Display of tic tac toe board
+		
+		# Implicit Requirements
+			# There are 3 column symbols before each row seperator line
+			# On the second column in each square, there is a board[num] value. The other rows are empty aside from columns.
+			# We need to increment that value board references with each iteration.
+			
+	Examples: 
+		# The board should look like this. Doesn't return anything, only outputs information.
+ "      |           |       "
+ "  #{brd[1]}   |     #{brd[2]}     |   #{brd[3]}      "
+ "      |           |       "
+ "------+-----------+------ "
+ "      |           |       "
+ "  #{brd[4]}   |     #{brd[5]}     |   #{brd[6]}      "
+ "      |           |       "
+ "------+-----------+------ "
+ "      |           |       "
+ "  #{brd[7]}   |     #{brd[8]}     |   #{brd[9]}      "
+ "      |           |       "
+			
+	Data Structure:
+		# Hash 
+		
+	Algorithm:
+		# Create a variable to reference the columns
+			- It should be "|   " or something similar 
+		# Create a variable to reference the row_seperators
+			- It should look like this: ------+-----------+------
+		# Output the 	
+			
+	
