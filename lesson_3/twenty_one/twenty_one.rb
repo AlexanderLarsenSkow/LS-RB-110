@@ -27,5 +27,37 @@ end
 
 deck = initialize_deck
 
-p deck 
+# Consider making this a generic method and determining if it's computer or player.
+
+def initial_deal_to_player(deck) 
+	card_one = deck.keys.sample
+	card_two = deck.keys.sample
+	puts "You have: #{card_one} and #{card_two}"
+end 
+
+def deal_one
+
+end 
+
+def player_turn
+	loop do 
+		puts "Do you want to hit or stay?"
+		answer = gets.chomp.capitalize
+		
+		if answer == 'Hit'
+			deal_one
+			break
+		
+		elsif answer == 'Stay'
+			nil
+			break
+			
+		else 
+			puts "Uh, hit or stay, pal?"
+		end 
+		 
+	end 	
+end 
+
+initial_deal_to_player(deck)
 
