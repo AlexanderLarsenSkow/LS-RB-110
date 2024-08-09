@@ -77,7 +77,6 @@ end
 # Asking the User and Computer who will go first
 
 def who_first_player
-  system "clear"
   loop do 
     prompt("Do you want to go first?")
     answer = gets.chomp.capitalize
@@ -269,6 +268,12 @@ def add_score!(board)
   end 
 end 
 
+def display_score
+  system "clear"
+  prompt("You : #{SCORE[:player]} Computer: #{SCORE[:computer]}")
+  prompt(" ")
+end 
+
 # Main Game
 
 display_teaching_board
@@ -276,7 +281,8 @@ intro
 
 loop do
   board = initialize_board
-
+  
+  display_score
   player_decision = who_first_player
   computer_decision = who_first_computer
   display_computer_decision(player_decision, computer_decision)
