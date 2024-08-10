@@ -46,7 +46,8 @@ def determine_ace_value!(cards)
 	cards.each_key do |card|
 		if card.split.include?("Ace") && card_values > TOP_VALUE
 			cards[card] = 1
-		end 
+		end
+		break if cards.values.sum <= TOP_VALUE
 	end
 	cards
 end 
@@ -69,25 +70,22 @@ def display_dealer_card(dealer_cards)
 end 
 
 def hit!(deck, cards)
-	card = deck.sample
+	card = deck.keys.sample
+	cards[card] = deck[card]
 	deck.delete(card)
-	cards << card
+	cards
 end 
 
-def add_one_to_value!(cards, card_values, person)
-	card_values[person] += DECK_WITH_VALUES[cards.last]
-end 
-
-def player_turn!(deck, player_cards, player_values)
+def player_turn!(deck, cards)
 	loop do 
 		puts "Do you want to hit or stay?"
 		answer = gets.chomp.capitalize
 		
 		if answer == 'Hit'
-			hit!(deck, player_cards)
-			add_one_to_value!(player_cards, player_values, 'player')
-			display_player_deal(player_cards)
-		
+			hit!(deck, cards)
+			display_player_deal(cards.keys)
+			p add_values!(cards)
+
 		elsif answer == 'Stay'
 			puts "Good luck player one."
 			break
@@ -132,9 +130,16 @@ loop do
 	
 	dealer_cards = initial_deal!(deck)
 	display_dealer_card(dealer_cards.keys)
-	dealer_value = add_values!(dealer_cards)
-
-	#player_turn!(deck, player_cards, player_value)
+	p dealer_value = add_values!(dealer_cards)
+	
+	if player_turn!(deck, player_cards) == 'Hit'
+		player_value = add_values!(cards)
+	
+	else 
+		break
+	end 
+	p player_value
+	
 	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
 	#display_dealer_choice(dealer_choice, dealer_cards)
 	
