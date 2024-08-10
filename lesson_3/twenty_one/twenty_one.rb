@@ -27,6 +27,8 @@ def initialize_deck
 	deck
 end 
 
+DECK_WITH_VALUES = initialize_deck
+
 # Consider making this a generic method and determining if it's computer or player.
 
 def initial_deal!(deck)
@@ -37,6 +39,14 @@ def initial_deal!(deck)
 	deck.delete(card_two)
 	
 	cards.push(card_one, card_two)
+end 
+
+def add_initial_values(cards)
+	value = 0
+	cards.each do |card|
+		value += DECK_WITH_VALUES[card]
+	end 
+	value
 end 
 
 
@@ -55,6 +65,10 @@ def hit!(deck, cards)
 	card = deck.sample
 	deck.delete(card)
 	cards << card
+end 
+
+def add_one_to_value(cards, current_value)
+	current_value += DECK_WITH_VALUES[cards.last]
 end 
 
 def player_turn(deck, player_cards)
@@ -77,17 +91,17 @@ def player_turn(deck, player_cards)
 	end 	
 end 
 	
-deck_with_card_values = initialize_deck
-
 loop do 
 	deck = initialize_deck.keys
 	player_cards = initial_deal!(deck)
 	display_player_deal(player_cards)
-
-	dealer_cards = initial_deal!(deck)
-	display_dealer_card(dealer_cards)
+	
+	p add_initial_values(player_cards)
+	#dealer_cards = initial_deal!(deck)
+	#display_dealer_card(dealer_cards)
 
 	player_turn(deck, player_cards)
+	p add_initial_values(player_cards)
 	#dealer_turn(deck, dealer_cards, dealer_values)
 	break 
 end 
