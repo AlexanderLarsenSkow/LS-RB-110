@@ -1,6 +1,6 @@
 # Twenty One! 
 
-CARDS = ["1", "2", "3", "4", "5", "6", 
+CARDS = ["2", "3", "4", "5", "6", 
 				"7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 				
 SUITS = ["Hearts", "Diamonds", "Spades", "Clubs"]
@@ -9,7 +9,7 @@ TOP_VALUE = 21
 
 def initialize_deck
 	deck = {}
-	card_value = 1 
+	card_value = 2 
 	
 	CARDS.each do |card|
 		if card_value > 10 && card != "Ace"
@@ -64,7 +64,7 @@ def player_turn(deck, player_cards)
 		
 		if answer == 'Hit'
 			hit!(deck, player_cards)
-			break
+			display_player_deal(player_cards)
 		
 		elsif answer == 'Stay'
 			puts "Good luck player one."
@@ -76,20 +76,20 @@ def player_turn(deck, player_cards)
 		 
 	end 	
 end 
-
+	
 deck_with_card_values = initialize_deck
-deck = initialize_deck.keys
 
-player_cards = initial_deal!(deck)
-display_player_deal(player_cards)
+loop do 
+	deck = initialize_deck.keys
+	player_cards = initial_deal!(deck)
+	display_player_deal(player_cards)
 
-dealer_cards = initial_deal!(deck)
-display_dealer_card(dealer_cards)
+	dealer_cards = initial_deal!(deck)
+	display_dealer_card(dealer_cards)
 
-player_turn(deck, player_cards)
-
-display_player_deal(player_cards)
-
-
+	player_turn(deck, player_cards)
+	#dealer_turn(deck, dealer_cards, dealer_values)
+	break 
+end 
 
 
