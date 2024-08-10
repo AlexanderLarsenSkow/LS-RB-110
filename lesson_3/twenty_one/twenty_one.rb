@@ -40,7 +40,19 @@ def initial_deal!(deck)
 	cards
 end 
 
-def add_values(cards)
+def determine_ace_value!(cards)
+	card_values = cards.values.sum
+	
+	cards.each_key do |card|
+		if card.split.include?("Ace") && card_values > TOP_VALUE
+			cards[card] = 1
+		end 
+	end
+	cards
+end 
+
+def add_values!(cards)
+	determine_ace_value!(cards)
 	cards.values.sum
 end 
 
@@ -116,11 +128,11 @@ loop do
 
 	player_cards = initial_deal!(deck)
 	display_player_deal(player_cards.keys)
-	p player_value = add_values(player_cards)
+	p player_value = add_values!(player_cards)
 	
-	#dealer_cards = initial_deal!(deck)
-	#display_dealer_card(dealer_cards)
-	#dealer_value = add_initial_values!(dealer_cards, 'dealer')
+	dealer_cards = initial_deal!(deck)
+	display_dealer_card(dealer_cards.keys)
+	dealer_value = add_values!(dealer_cards)
 
 	#player_turn!(deck, player_cards, player_value)
 	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
