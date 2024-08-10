@@ -109,17 +109,31 @@ def player_turn!(deck, cards)
 			hit!(deck, cards)
 			display_player_deal(cards.keys)
 			new_values = add_values!(cards)
+			hit_over_21(new_values, 'Player', 'Dealer')
+			
+			if new_values == TOP_VALUE
+				puts "21! Nice!"
+				break
+			end 
 
 		elsif answer == 'Stay'
-			puts "Good luck player one."
+			puts "Good luck!"
 			break
-			
+		
 		else 
-			puts "Uh, hit or stay, pal?"
+			puts "Uh, hit or stay pal?"
 		end 
 		 
 	end 
 	new_values
+end 
+
+def hit_over_21(value, current_player, other_player)
+	if value > TOP_VALUE
+		puts "#{other_player} wins!"
+	else 
+		nil
+	end 
 end 
 
 def display_dealer_choice(choice, dealer_cards)
@@ -163,7 +177,9 @@ loop do
 	end 
 	
 	player_value = player_turn!(deck, player_cards)
-	p player_value
+	p player_value 
+	break if hit_over_21(player_value, 'Player', 'Dealer')
+		
 	
 	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
 	#display_dealer_choice(dealer_choice, dealer_cards)

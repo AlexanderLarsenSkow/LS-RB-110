@@ -118,5 +118,33 @@ Determine_Ace_Value
 		# If the sum is less than 21, than the "Ace" can still be 11
 		
 		
-
+Hitting over Win Condition
+	If the player or the dealer hits over 21, then the other player automatically wins the game. 
+	
+	Problem:
+		Input: integer value, string for player, string for dealer
+		Output: winner display 
+		
+		Explicit Requirements:
+			# Determine if there is a winner after player and dealer turn
+			# If player goes over 21, dealer wins 
+			# If dealer goes over 21, player wins
+			
+		Implicit Requirements:
+			# Idk 
+			
+	Examples:
+		player: 22 => dealer won
+		dealer: 24 => player won
+		else: => keep playing 
+		
+		
+	Data Structure:
+		# Arrays 
+		
+	Algorithm:
+		# If the current_player goes over 21, the other player wins.
+		# Return other player if they won 
+		# if no one went over 21, return nil 
+	
 		
