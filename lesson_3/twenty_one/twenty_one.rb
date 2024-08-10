@@ -41,6 +41,7 @@ end
 
 
 def display_player_deal(player_cards)
+	system "clear"
 	player_cards.each do |card|
 		puts "You have the #{card}."
 	end 
@@ -48,6 +49,32 @@ end
 
 def display_dealer_card(dealer_cards)
 	puts "The dealer has the #{dealer_cards.sample} and an unknown card."
+end 
+
+def hit!(deck, cards)
+	card = deck.sample
+	deck.delete(card)
+	cards << card
+end 
+
+def player_turn(deck, player_cards)
+	loop do 
+		puts "Do you want to hit or stay?"
+		answer = gets.chomp.capitalize
+		
+		if answer == 'Hit'
+			hit!(deck, player_cards)
+			break
+		
+		elsif answer == 'Stay'
+			puts "Good luck player one."
+			break
+			
+		else 
+			puts "Uh, hit or stay, pal?"
+		end 
+		 
+	end 	
 end 
 
 deck_with_card_values = initialize_deck
@@ -59,31 +86,10 @@ display_player_deal(player_cards)
 dealer_cards = initial_deal!(deck)
 display_dealer_card(dealer_cards)
 
-p deck
+player_turn(deck, player_cards)
 
-def deal_one(deck)
-	card = deck.sample
-end 
+display_player_deal(player_cards)
 
-def player_turn
-	loop do 
-		puts "Do you want to hit or stay?"
-		answer = gets.chomp.capitalize
-		
-		if answer == 'Hit'
-			deal_one
-			break
-		
-		elsif answer == 'Stay'
-			nil
-			break
-			
-		else 
-			puts "Uh, hit or stay, pal?"
-		end 
-		 
-	end 	
-end 
 
-#initial_deal_to_player(deck)
+
 
