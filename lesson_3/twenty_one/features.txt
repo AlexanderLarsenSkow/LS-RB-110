@@ -6,6 +6,11 @@ Game Rules:
 	# Player vs. the dealer
 	# Player decides to hit or stay; if they hit, they get a new card.
 	# Dealer decides to hit or stay based on their value. 16 and under, they should hit. 17 and over they should stay.
+	
+	# IF A CARD IS DEALT TO A PLAYER, THAT CARD NEEDS TO BE DELETED FROM THE DECK. 
+		# The only problem with that is that then you can't access its card value anymore. Shit. Maybe we should have another deck?
+		# Because this deck is like a card_values deck. We should probably have another deck where we delete cards from when they're dealt.
+		# Interesting idea...
 
 Initializing the Deck
 
