@@ -13,6 +13,10 @@ Display the cards to the user.
 Deal two cards to the Computer 
 - Add the card_values. 
 
+Adding Card Values 
+- Card values need to be added every time a new card is dealt. 
+- This has to be checked against win conditions on each pass. 
+
 Ask the user if they want to hit or stay.
 	- Display the computer cards to the player
 	- If they want to hit, they will be dealt another card.
@@ -29,6 +33,7 @@ Computer Turn: Hit or Stay?
 	
 Win Conditions:
 	- If someone hits 21 immediately, they win that round immediately and it's a new round.
+	- If both player and dealer have 21, then they tie the round and no one wins.
 	- If someone breaks over 21, they lose and the other player wins.
 	- Whoever is 21 or under will win OR whoever is closer to 21.
 

@@ -41,14 +41,13 @@ def initial_deal!(deck)
 	cards.push(card_one, card_two)
 end 
 
-def add_initial_values(cards)
-	value = 0
+def add_initial_values!(cards, person)
+	card_values = {'player' => 0, 'dealer' => 0}
 	cards.each do |card|
-		value += DECK_WITH_VALUES[card]
+		card_values[person] += DECK_WITH_VALUES[card]
 	end 
-	value
+	card_values.select { |k, v| k == person }
 end 
-
 
 def display_player_deal(player_cards)
 	system "clear"
@@ -58,7 +57,7 @@ def display_player_deal(player_cards)
 end 
 
 def display_dealer_card(dealer_cards)
-	puts "The dealer has the #{dealer_cards.sample} and an unknown card."
+	puts "The dealer has the #{dealer_cards[0]} and an unknown card."
 end 
 
 def hit!(deck, cards)
@@ -67,17 +66,18 @@ def hit!(deck, cards)
 	cards << card
 end 
 
-def add_one_to_value(cards, current_value)
-	current_value += DECK_WITH_VALUES[cards.last]
+def add_one_to_value!(cards, card_values, person)
+	card_values[person] += DECK_WITH_VALUES[cards.last]
 end 
 
-def player_turn(deck, player_cards)
+def player_turn!(deck, player_cards, player_values)
 	loop do 
 		puts "Do you want to hit or stay?"
 		answer = gets.chomp.capitalize
 		
 		if answer == 'Hit'
 			hit!(deck, player_cards)
+			add_one_to_value!(player_cards, player_values, 'player')
 			display_player_deal(player_cards)
 		
 		elsif answer == 'Stay'
@@ -95,14 +95,17 @@ loop do
 	deck = initialize_deck.keys
 	player_cards = initial_deal!(deck)
 	display_player_deal(player_cards)
+	player_values = add_initial_values!(player_cards, 'player')
 	
-	p add_initial_values(player_cards)
-	#dealer_cards = initial_deal!(deck)
-	#display_dealer_card(dealer_cards)
+	dealer_cards = initial_deal!(deck)
+	display_dealer_card(dealer_cards)
+	dealer_values = add_initial_values!(dealer_cards, 'dealer')
 
-	player_turn(deck, player_cards)
-	p add_initial_values(player_cards)
+	player_turn!(deck, player_cards, player_values)
 	#dealer_turn(deck, dealer_cards, dealer_values)
+	
+	p player_values
+	p dealer_values
 	break 
 end 
 

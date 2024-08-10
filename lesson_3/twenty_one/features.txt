@@ -51,6 +51,25 @@ Algorithm:
 	# If the card equals Jack, Queen, or King, the card value is 10
 	# If the card equals Ace, the card value is 11
 	# Return the new hash.
+
+METHOD: How should values be saved?
+- Hash? {player: 0, dealer: 0}
 	
-		
+ADD_VALUE METHOD
+
+Understanding the Problem:
+	# Input: cards
+	# Output: Adding the values from each card
+	
+	
+	# Explicit Requirements:
+		# Takes an array of cards and returns the value of all the cards. 
+		# It should update every time the player or dealer receives a card.
+
+
+ALGORITHM:
+
+# Take the cards from the player and dealer 
+# Iterate through, add the values up that each card points to in the card rules hash
+# Return this value 
 		
