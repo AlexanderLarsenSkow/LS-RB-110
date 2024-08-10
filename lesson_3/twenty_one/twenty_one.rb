@@ -40,13 +40,10 @@ def initial_deal!(deck)
 	cards
 end 
 
-def add_initial_values!(cards, person)
-	card_values = {'player' => 0, 'dealer' => 0}
-	cards.each do |card|
-		card_values[person] += DECK_WITH_VALUES[card]
-	end 
-	card_values.select { |k, v| k == person }
+def add_values(cards)
+	cards.values.sum
 end 
+
 
 def display_player_deal(player_cards)
 	system "clear"
@@ -116,12 +113,10 @@ end
 	
 loop do 
 	deck = initialize_deck
-	p initial_deal!(deck)
-	
-	#player_cards = initial_deal!(deck)
-	p deck
-	#display_player_deal(player_cards)
-	#player_value = add_initial_values!(player_cards, 'player')
+
+	player_cards = initial_deal!(deck)
+	display_player_deal(player_cards.keys)
+	p player_value = add_values(player_cards)
 	
 	#dealer_cards = initial_deal!(deck)
 	#display_dealer_card(dealer_cards)
