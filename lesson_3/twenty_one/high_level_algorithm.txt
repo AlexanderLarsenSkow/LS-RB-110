@@ -1,0 +1,38 @@
+Initialize a deck
+	- Here, you create a deck of card values first, then take the keys of that and put it in an array. This is the initialized deck
+		you use every round. 
+
+Deal two cards to the player 
+	- Two cards should be dealt to the player from the deck at random.
+	- When the player is dealt two cards, those cards should be deleted from the deck.
+	
+Display the cards to the user. 
+	- Show the cards themselves 
+	- Maybe show the card_values as well? I'll decide that one. 
+	
+Deal two cards to the Computer 
+- Add the card_values. 
+
+Ask the user if they want to hit or stay.
+	- Display the computer cards to the player
+	- If they want to hit, they will be dealt another card.
+		#	Display this card to the user.
+		# Ask again if they want to hit or stay. Repeat until the user says stay.
+		# Prompt error if they don't select hit or stay.
+	- If they want to stay, end the player's turn.
+		# End the loop basically
+
+Computer Turn: Hit or Stay?
+	- The computer should always hit if their card_values are 16 or less.
+	- If the computer has 17 or greater, they will stay.
+	- If the computer hits higher than 21, they will bust out. 
+	
+Win Conditions:
+	- If someone hits 21 immediately, they win that round immediately and it's a new round.
+	- If someone breaks over 21, they lose and the other player wins.
+	- Whoever is 21 or under will win OR whoever is closer to 21.
+
+Display Winner and Score: 
+	- This can be done later.
+	
+	
