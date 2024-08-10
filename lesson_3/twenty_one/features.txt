@@ -55,24 +55,34 @@ Algorithm:
 METHOD: How should values be saved?
 - Hash? {player: 0, dealer: 0}
 	
-ADD_VALUE METHOD
+CONVERTING Player and Dealer Cards to a Hash
 
-Understanding the Problem:
-	# Input: cards
-	# Output: Adding the values from each card
-	
-	
-	# Explicit Requirements:
-		# Takes an array of cards and returns the value of all the cards. 
-		# It should update every time the player or dealer receives a card.
+INITIAL DEAL
 
+Problem:
+	# Input: Hash with cards for keys and integers for values 
+	# Output: A smaller hash of 2 keys and 2 values from the input hash 
+	
+	# Explicit Requirements 
+		# Take two keys and two values at random from the input hash and place them in a new hash 
+		# The keys and values should be deleted from the input hash 
+		
+	# Implicit Requirements:
+		# Deleting means to mutate entirely so the keys and values are no longer present.
+		
+Examples:
+	# {"2 of Hearts" => 2, "Ace of Spades" => 11}
+	
+Data Structure:
+	# Hashes 
 
 ALGORITHM:
-
-# Take the cards from the player and dealer 
-# Iterate through, add the values up that each card points to in the card rules hash
-# Return this value 
-		
+	Create an empty hash called cards 
+	# Take the keys of the hash 
+	# Take two keys at random
+	# Add them to the hash pointing at the values they point at in the deck hash 
+	# Delete all the pairs from the deck hash that are in the cards hash 
+	
 
 # Note: Consider changing the player_cards / dealer_cards just to a hash, with the cards as keys and the card_values as values.
 	# This will make it easier to reflect the value of the Ace and change it efficiently. 
