@@ -73,3 +73,24 @@ ALGORITHM:
 # Iterate through, add the values up that each card points to in the card rules hash
 # Return this value 
 		
+
+# Note: Consider changing the player_cards / dealer_cards just to a hash, with the cards as keys and the card_values as values.
+	# This will make it easier to reflect the value of the Ace and change it efficiently. 
+		
+Determine_Ace_Value
+	
+	Understanding the Problem:
+	
+		# Input: cards array (all the cards), values hash (total_value)
+		# Output: return the integer value of Ace
+			
+		# Explicit Requirements:
+			# If the cards, with the Ace, add up to more than 21, then the Ace downgrades to 1 point. 
+			# If the player has an Ace and they hit over 21, then their current Ace can be downgraded to 1.
+		
+		# Implicit Requirements:
+			# Mutating the player_cards hash
+			
+			
+
+		
