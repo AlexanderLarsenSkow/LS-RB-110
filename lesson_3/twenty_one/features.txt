@@ -91,7 +91,7 @@ Determine_Ace_Value
 	
 	Understanding the Problem:
 	
-		# Input: cards array (all the cards), values hash (total_value)
+		# Input: Cards hash with keys as cards and values as integers
 		# Output: return the integer value of Ace
 			
 		# Explicit Requirements:
@@ -101,6 +101,22 @@ Determine_Ace_Value
 		# Implicit Requirements:
 			# Mutating the player_cards hash
 			
+		# Edge Cases:
+			# more than one Ace => Creates a problem where it will make both Aces equal 1
 			
+	Example: 
+		Sum < 21 and includes Ace => "Ace" => 11
+		Sum > 21 and includes Ace => "Ace" => 1
+		
+	Data Structure:
+		# Hashes and Arrays 
+		
+	ALGORITHM:
+		# Take the cards hash
+		# If the hash includes the substring "Ace" and the sum of the values of the hash is greater than 21
+		# The value the "Ace" points at should now be 1
+		# If the sum is less than 21, than the "Ace" can still be 11
+		
+		
 
 		
