@@ -28,7 +28,6 @@ def initialize_deck
 	deck
 end 
 
-# Consider making this a generic method and determining if it's computer or player.
 def initial_deal!(deck)
 	cards = {}
 	2.times do |_|
@@ -69,6 +68,30 @@ def display_dealer_card(dealer_cards)
 	puts "The dealer has the #{dealer_cards[0]} and an unknown card."
 end 
 
+def dealt_twenty_one(player_value, dealer_value)
+	if player_value == TOP_VALUE && player_value != dealer_value
+		"Player"
+	
+	elsif dealer_value == TOP_VALUE && dealer_value != player_value
+		"Dealer"
+	
+	elsif player_value == TOP_VALUE && player_value == dealer_value
+		"Tie"
+	
+	else 
+		nil
+	end 
+end 
+
+def determine_winner_for_blackjack(player_value, dealer_value)
+	blackjack = dealt_twenty_one(player_value, dealer_value) 
+	case blackjack
+	when "Player" then puts "Blackjack! You win this round."
+	when "Dealer" then puts "The dealer got Blackjack! You lost this time."
+	when "Tie" then puts "Double Blackjack! What are the odds? Tie game!"
+	end 
+end 
+
 def hit!(deck, cards)
 	card = deck.keys.sample
 	cards[card] = deck[card]
@@ -77,6 +100,7 @@ def hit!(deck, cards)
 end 
 
 def player_turn!(deck, cards)
+	new_values = []
 	loop do 
 		puts "Do you want to hit or stay?"
 		answer = gets.chomp.capitalize
@@ -84,7 +108,7 @@ def player_turn!(deck, cards)
 		if answer == 'Hit'
 			hit!(deck, cards)
 			display_player_deal(cards.keys)
-			p add_values!(cards)
+			new_values = add_values!(cards)
 
 		elsif answer == 'Stay'
 			puts "Good luck player one."
@@ -94,7 +118,8 @@ def player_turn!(deck, cards)
 			puts "Uh, hit or stay, pal?"
 		end 
 		 
-	end 	
+	end 
+	new_values
 end 
 
 def display_dealer_choice(choice, dealer_cards)
@@ -132,12 +157,12 @@ loop do
 	display_dealer_card(dealer_cards.keys)
 	p dealer_value = add_values!(dealer_cards)
 	
-	if player_turn!(deck, player_cards) == 'Hit'
-		player_value = add_values!(cards)
-	
-	else 
+	if dealt_twenty_one(player_value, dealer_value)
+		determine_winner_for_blackjack(player_value, dealer_value) 
 		break
 	end 
+	
+	player_value = player_turn!(deck, player_cards)
 	p player_value
 	
 	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
