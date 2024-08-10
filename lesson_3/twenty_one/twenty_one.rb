@@ -1,7 +1,7 @@
 # Twenty One! 
 
-CARDS = ["One", "Two", "Three", "Four", "Five", "Six", 
-				"Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+CARDS = ["1", "2", "3", "4", "5", "6", 
+				"7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 				
 SUITS = ["Hearts", "Diamonds", "Spades", "Clubs"]
 
@@ -27,18 +27,19 @@ def initialize_deck
 	deck
 end 
 
-deck = initialize_deck
+deck = initialize_deck.keys
+
 
 # Consider making this a generic method and determining if it's computer or player.
 
 def initial_deal_to_player(deck)
 	player_cards = []
-	card_one = deck.keys.sample
-	card_two = deck.keys.sample
+	card_one = deck.sample
+	card_two = deck.sample
 	player_cards.push(card_one, card_two)
 end 
 
-player_initial_deal = initial_deal_to_player(deck)
+#player_initial_deal = initial_deal_to_player(deck)
 
 def display_player_deal(player_initial_deal)
 	player_initial_deal.each do |card|
@@ -46,7 +47,7 @@ def display_player_deal(player_initial_deal)
 	end 
 end 
 
-display_player_deal(player_initial_deal)
+#display_player_deal(player_initial_deal)
 
 def deal_one(deck)
 	card = deck.sample
@@ -72,5 +73,5 @@ def player_turn
 	end 	
 end 
 
-initial_deal_to_player(deck)
+#initial_deal_to_player(deck)
 
