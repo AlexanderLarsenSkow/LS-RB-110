@@ -6,6 +6,7 @@ CARDS = ["2", "3", "4", "5", "6",
 SUITS = ["Hearts", "Diamonds", "Spades", "Clubs"]
 
 TOP_VALUE = 21
+STAY_VALUE = 17
 
 def initialize_deck
 	deck = {}
@@ -90,22 +91,47 @@ def player_turn!(deck, player_cards, player_values)
 		 
 	end 	
 end 
+
+def display_dealer_choice(choice, dealer_cards)
+	if choice == 'hit'
+		puts "The dealer has decided to hit! /
+		They have gotten the #{dealer_cards.last}."
+		
+	else 
+		puts "The dealer has decided to stay."
+	end 
+end 
+
+def dealer_turn!(deck, dealer_cards, dealer_value)
+	dealer_choice = ''
+	if dealer_value['dealer'] < STAY_VALUE
+		dealer_choice = 'hit'
+		hit!(deck, dealer_cards)
+		add_one_to_value!(dealer_cards, dealer_value, 'dealer')
+	
+	else
+		dealer_choice = 'stay'
+		
+	end
+	dealer_choice
+end 
 	
 loop do 
 	deck = initialize_deck.keys
 	player_cards = initial_deal!(deck)
 	display_player_deal(player_cards)
-	player_values = add_initial_values!(player_cards, 'player')
+	player_value = add_initial_values!(player_cards, 'player')
 	
 	dealer_cards = initial_deal!(deck)
 	display_dealer_card(dealer_cards)
-	dealer_values = add_initial_values!(dealer_cards, 'dealer')
+	dealer_value = add_initial_values!(dealer_cards, 'dealer')
 
-	player_turn!(deck, player_cards, player_values)
-	#dealer_turn(deck, dealer_cards, dealer_values)
+	player_turn!(deck, player_cards, player_value)
+	dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
+	display_dealer_choice(dealer_choice, dealer_cards)
 	
-	p player_values
-	p dealer_values
+	p player_value
+	p dealer_value
 	break 
 end 
 
