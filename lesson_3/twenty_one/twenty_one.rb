@@ -28,18 +28,16 @@ def initialize_deck
 	deck
 end 
 
-DECK_WITH_VALUES = initialize_deck
-
 # Consider making this a generic method and determining if it's computer or player.
-
 def initial_deal!(deck)
-	cards = []
-	card_one = deck.sample
-	card_two = deck.sample
-	deck.delete(card_one)
-	deck.delete(card_two)
+	cards = {}
+	2.times do |_|
+		card = deck.keys.sample
+		cards[card] = deck[card]
+	end 
 	
-	cards.push(card_one, card_two)
+	deck.delete_if { |card, value| cards.include?(card)}
+	cards
 end 
 
 def add_initial_values!(cards, person)
@@ -117,21 +115,24 @@ def dealer_turn!(deck, dealer_cards, dealer_value)
 end 
 	
 loop do 
-	deck = initialize_deck.keys
-	player_cards = initial_deal!(deck)
-	display_player_deal(player_cards)
-	player_value = add_initial_values!(player_cards, 'player')
+	deck = initialize_deck
+	p initial_deal!(deck)
 	
-	dealer_cards = initial_deal!(deck)
-	display_dealer_card(dealer_cards)
-	dealer_value = add_initial_values!(dealer_cards, 'dealer')
+	#player_cards = initial_deal!(deck)
+	p deck
+	#display_player_deal(player_cards)
+	#player_value = add_initial_values!(player_cards, 'player')
+	
+	#dealer_cards = initial_deal!(deck)
+	#display_dealer_card(dealer_cards)
+	#dealer_value = add_initial_values!(dealer_cards, 'dealer')
 
-	player_turn!(deck, player_cards, player_value)
-	dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
-	display_dealer_choice(dealer_choice, dealer_cards)
+	#player_turn!(deck, player_cards, player_value)
+	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
+	#display_dealer_choice(dealer_choice, dealer_cards)
 	
-	p player_value
-	p dealer_value
+	#p player_value
+	#p dealer_value
 	break 
 end 
 
