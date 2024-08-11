@@ -113,7 +113,7 @@ def player_hit!(deck, cards)
 	add_values!(cards)
 end 
 
-def display_hit_results(deck, cards, value)
+def display_hit_results(value)
 	if value == TOP_VALUE
 		puts "That's BlackJack! You win this round."
 		
@@ -133,7 +133,7 @@ def player_turn!(deck, cards, value)
 		
 		if answer.start_with? "H"
 			value = player_hit!(deck, cards)
-			display_hit_results(deck, cards, value)
+			display_hit_results(value)
 			
 		elsif answer.start_with?('S')
 			puts "Good luck!"
@@ -146,28 +146,40 @@ def player_turn!(deck, cards, value)
 	value
 end 
 
-def display_dealer_choice(choice, dealer_cards)
-	if choice == 'hit'
-		puts "The dealer has decided to hit! /
-		They have gotten the #{dealer_cards.last}."
-		
-	else 
-		puts "The dealer has decided to stay."
+def display_dealer_cards(cards)
+	cards.each_pair do |card, _|
+		puts "The dealer has the #{card}"
 	end 
+end
+
+def display_dealer_hit
+	puts "The dealer has decided to hit!"
 end 
 
-def dealer_turn!(deck, dealer_cards, dealer_value)
-	dealer_choice = ''
-	if dealer_value['dealer'] < STAY_VALUE
-		dealer_choice = 'hit'
-		hit!(deck, dealer_cards)
-		add_one_to_value!(dealer_cards, dealer_value, 'dealer')
+def display_dealer_stay
+	puts "The dealer has to decided to stay!"
+end 
+
+def dealer_hit!(deck, cards, value)
+	loop do  
+		break if value > STAY_VALUE
+		hit!(deck, cards)
+		display_dealer_cards(cards)
+		value = add_values!(cards)
+	end 
+	value
+end 
+
+def dealer_turn!(deck, cards, value)
+	if value < STAY_VALUE
+		display_dealer_hit
+		value = dealer_hit!(deck, cards, value)
 	
 	else
-		dealer_choice = 'stay'
-		
+		display_dealer_stay		
 	end
-	dealer_choice
+	
+	value
 end 
 	
 loop do 
@@ -188,12 +200,11 @@ loop do
 	
 	player_value = player_turn!(deck, player_cards, player_value)
 	p player_value 
-	break if hit_over_21(player_value, 'Player', 'Dealer')
+	#break if hit_over_21(player_value, 'Player', 'Dealer')
 		
 	
-	#dealer_choice = dealer_turn!(deck, dealer_cards, dealer_value)
-	#display_dealer_choice(dealer_choice, dealer_cards)
-	
+	dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
+	p dealer_value
 	#p player_value
 	#p dealer_value
 	break 
