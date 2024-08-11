@@ -147,6 +147,23 @@ Hitting over Win Condition
 		# Return other player if they won 
 		# if no one went over 21, return nil 
 	
-Player Hit Method 
-
+Dealer Turn 
+	This method should accomplish three tasks: 
+		- If the dealer wants to hit, the dealer will be given a new card.
+		- This card needs to be displayed to the player.
+		- The dealer's card value needs to be updated and checked against win conditions constantly.
 		
+	Things we need to pass in:
+		- Dealer's cards
+		- Dealer's values
+		
+	Methods we already have:
+		- hit! adds new card to dealer's cards
+		- add_values! adds all values together.
+		
+	Methods we need:
+		- reveal hidden dealer card
+		- Display dealer values 
+		- Display dealer_hit- shows the new cards.
+		
+		Do we need a method like player_hit! that does all the things at once? Idk. Is that kind of method even good?
