@@ -147,4 +147,6 @@ Hitting over Win Condition
 		# Return other player if they won 
 		# if no one went over 21, return nil 
 	
+Player Hit Method 
+
 		

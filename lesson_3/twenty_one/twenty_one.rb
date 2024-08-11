@@ -99,41 +99,50 @@ def hit!(deck, cards)
 	cards
 end 
 
-def player_turn!(deck, cards)
-	new_values = []
+def hit_over_21(value, current_player, other_player)
+	if value > TOP_VALUE
+		other_player
+	else 
+		nil
+	end 
+end 
+
+def player_hit!(deck, cards)
+	hit!(deck, cards)
+	display_player_deal(cards.keys)
+	
+	new_value = add_values!(cards)
+	hit_over_21(new_value, 'Player', 'Dealer')
+	
+	new_value
+end 
+
+def player_turn!(deck, cards, value)
 	loop do 
 		puts "Do you want to hit or stay?"
 		answer = gets.chomp.capitalize
 		
-		if answer == 'Hit'
-			hit!(deck, cards)
-			display_player_deal(cards.keys)
-			new_values = add_values!(cards)
-			hit_over_21(new_values, 'Player', 'Dealer')
+		if answer.start_with? "H"
+			value = player_hit!(deck, cards)
 			
-			if new_values == TOP_VALUE
-				puts "21! Nice!"
+			if value == TOP_VALUE
+				puts "That's BlackJack! You win this round."
+				break
+			
+			elsif hit_over_21(value, 'Player', 'Dealer')
+				puts "Oops! You busted!"
 				break
 			end 
 
-		elsif answer == 'Stay'
+		elsif answer.start_with?('S')
 			puts "Good luck!"
 			break
 		
 		else 
 			puts "Uh, hit or stay pal?"
 		end 
-		 
 	end 
-	new_values
-end 
-
-def hit_over_21(value, current_player, other_player)
-	if value > TOP_VALUE
-		puts "#{other_player} wins!"
-	else 
-		nil
-	end 
+	value
 end 
 
 def display_dealer_choice(choice, dealer_cards)
@@ -176,7 +185,7 @@ loop do
 		break
 	end 
 	
-	player_value = player_turn!(deck, player_cards)
+	player_value = player_turn!(deck, player_cards, player_value)
 	p player_value 
 	break if hit_over_21(player_value, 'Player', 'Dealer')
 		
