@@ -110,11 +110,7 @@ end
 def player_hit!(deck, cards)
 	hit!(deck, cards)
 	display_player_deal(cards.keys)
-	
-	new_value = add_values!(cards)
-	hit_over_21(new_value, 'Player', 'Dealer')
-	
-	new_value
+	add_values!(cards)
 end 
 
 def player_turn!(deck, cards, value)
