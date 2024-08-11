@@ -113,23 +113,28 @@ def player_hit!(deck, cards)
 	add_values!(cards)
 end 
 
+def display_hit_results(deck, cards, value)
+	if value == TOP_VALUE
+		puts "That's BlackJack! You win this round."
+		
+	elsif hit_over_21(value, 'Player', 'Dealer')
+		puts "Oops! You busted!"
+	end
+end 
+
 def player_turn!(deck, cards, value)
-	loop do 
+	loop do
+		if value == TOP_VALUE || value > TOP_VALUE
+			break
+		end
+		
 		puts "Do you want to hit or stay?"
 		answer = gets.chomp.capitalize
 		
 		if answer.start_with? "H"
 			value = player_hit!(deck, cards)
+			display_hit_results(deck, cards, value)
 			
-			if value == TOP_VALUE
-				puts "That's BlackJack! You win this round."
-				break
-			
-			elsif hit_over_21(value, 'Player', 'Dealer')
-				puts "Oops! You busted!"
-				break
-			end 
-
 		elsif answer.start_with?('S')
 			puts "Good luck!"
 			break
