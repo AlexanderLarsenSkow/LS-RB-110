@@ -11,11 +11,6 @@ WINNING_LINES = [
   [1, 5, 9], [3, 5, 7] # diagnals
 ]
 
-SCORE = {
-  player: 0,
-  computer: 0
-}
-
 def prompt(message)
   puts "<< #{message}"
 end
@@ -46,15 +41,17 @@ def intro
   end
 end
 
-def display_score_under_board
+score = { player: 0, computer: 0 }
+
+def display_score_under_board(score)
   puts " "
-  puts(format(DISPLAYS['scores_under_board'], SCORE[:player], SCORE[:computer]))
+  puts(format(DISPLAYS['scores_under_board'], score[:player], score[:computer]))
   puts " "
 end
 
 # rubocop: disable Metrics/AbcSize
 
-def display_board(board)
+def display_board(board, score)
   system "clear"
   puts DISPLAYS['x_o']
   puts " "
@@ -69,7 +66,7 @@ def display_board(board)
   puts "      |           |       "
   puts "  #{board[7]}   |     #{board[8]}     |   #{board[9]}      "
   puts "      |           |       "
-  display_score_under_board
+  display_score_under_board(score)
 end
 # rubocop: enable Metrics/AbcSize
 
@@ -254,18 +251,18 @@ def detect_winner(board)
   nil
 end
 
-def add_score!(board)
+def add_score!(board, score)
   if detect_winner(board) == 'Player'
-    SCORE[:player] += 1
+    score[:player] += 1
   else
-    SCORE[:computer] += 1
+    score[:computer] += 1
   end
 end
 
-def display_score
+def display_score(score)
   system "clear"
-  prompt(format(DISPLAYS['scores_between_rounds'], SCORE[:player],
-                SCORE[:computer]))
+  prompt(format(DISPLAYS['scores_between_rounds'], score[:player],
+                score[:computer]))
   puts " "
 end
 
@@ -276,7 +273,7 @@ intro
 
 loop do
   board = initialize_board
-  display_score
+  display_score(score)
 
   player_decision = who_first_player
   computer_decision = who_first_computer
@@ -288,16 +285,16 @@ loop do
   game_start
 
   loop do
-    display_board(board)
+    display_board(board, score)
     current_player = alternate_player(board, decision)
     place_piece!(board, current_player)
     break if someone_won?(board) || full_board?(board)
   end
   system "clear"
-  display_board(board)
+  display_board(board, score)
 
   if someone_won?(board)
-    add_score!(board)
+    add_score!(board, score)
     prompt("#{detect_winner(board)} #{DISPLAYS['x_won']}")
   else
     prompt(DISPLAYS['tie'])
