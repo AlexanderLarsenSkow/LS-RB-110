@@ -214,35 +214,44 @@ def display_hand_winner(winner, player_value, dealer_value)
 		puts "You both tie at #{player_value}!"
 	end 
 end 
-	
+
 loop do 
-	deck = initialize_deck
+	puts "wtf Welcome to 21!"
+	
+	loop do 
+		deck = initialize_deck
 
-	player_cards = initial_deal!(deck)
-	display_player_deal(player_cards.keys)
-	p player_value = add_values!(player_cards)
+		player_cards = initial_deal!(deck)
+		display_player_deal(player_cards.keys)
+		p player_value = add_values!(player_cards)
 	
-	dealer_cards = initial_deal!(deck)
-	display_dealer_card(dealer_cards.keys)
-	p dealer_value = add_values!(dealer_cards)
+		dealer_cards = initial_deal!(deck)
+		display_dealer_card(dealer_cards.keys)
+		p dealer_value = add_values!(dealer_cards)
 	
-	if dealt_twenty_one(player_value, dealer_value)
-		determine_winner_for_blackjack(player_value, dealer_value) 
-		break
+		if dealt_twenty_one(player_value, dealer_value)
+			determine_winner_for_blackjack(player_value, dealer_value) 
+			break
+		end 
+	
+		player_value = player_turn!(deck, player_cards, player_value)
+		p player_value 
+	
+		break if hit_over_21(player_value, 'Player', 'Dealer')
+	
+		system "clear"	
+	
+		dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
+
+		winner = determine_hand_winner(player_value, dealer_value)
+		display_hand_winner(winner, player_value, dealer_value)
+		break 
 	end 
+	#system "clear"
+	puts "Play again? Y / N"
+	answer = gets.chomp.capitalize
 	
-	player_value = player_turn!(deck, player_cards, player_value)
-	p player_value 
-	
-	break if hit_over_21(player_value, 'Player', 'Dealer')
-	
-	system "clear"	
-	
-	dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
-
-	winner = determine_hand_winner(player_value, dealer_value)
-	display_hand_winner(winner, player_value, dealer_value)
-	break 
+	break if answer.start_with?('N')
 end 
 
-
+puts "Thanks for playing!"
