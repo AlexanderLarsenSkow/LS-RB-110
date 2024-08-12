@@ -148,6 +148,7 @@ end
 
 def display_new_dealer_card(cards)
 	system "clear"
+	sleep 1
 	puts "The dealer hit the #{cards.keys.last}!"
 end 
 
@@ -183,6 +184,36 @@ def dealer_turn!(deck, cards, value)
 	end 
 	value
 end 
+
+def determine_hand_winner(player_value, dealer_value)
+	if player_value > dealer_value && player_value <= TOP_VALUE
+		"Player"
+	
+	elsif dealer_value > player_value && dealer_value <= TOP_VALUE
+		"Dealer"
+		
+	elsif dealer_value > TOP_VALUE
+		"Player"
+		
+	elsif player_value > TOP_VALUE
+		"Dealer"
+	
+	elsif player_value == dealer_value
+		nil
+	end 
+end
+
+def display_hand_winner(winner, player_value, dealer_value)
+	if winner == 'Player'
+		puts "Congratulations! You won this hand at #{player_value}."
+	
+	elsif winner == "Dealer"
+		puts "The Dealer wins at #{dealer_value}! Good hand."
+		
+	elsif !winner
+		puts "You both tie at #{player_value}!"
+	end 
+end 
 	
 loop do 
 	deck = initialize_deck
@@ -202,14 +233,15 @@ loop do
 	
 	player_value = player_turn!(deck, player_cards, player_value)
 	p player_value 
+	
 	break if hit_over_21(player_value, 'Player', 'Dealer')
 	
 	system "clear"	
 	
 	dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
-	p dealer_value
-	#p player_value
-	#p dealer_value
+
+	winner = determine_hand_winner(player_value, dealer_value)
+	display_hand_winner(winner, player_value, dealer_value)
 	break 
 end 
 
