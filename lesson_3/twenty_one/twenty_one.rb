@@ -146,39 +146,41 @@ def player_turn!(deck, cards, value)
 	value
 end 
 
-def display_dealer_cards(cards)
-	cards.each_pair do |card, _|
-		puts "The dealer has the #{card}"
-	end 
-end
-
-def display_dealer_hit
-	puts "The dealer has decided to hit!"
+def display_new_dealer_card(cards)
+	system "clear"
+	puts "The dealer hit the #{cards.keys.last}!"
 end 
 
-def display_dealer_stay
-	puts "The dealer has to decided to stay!"
+def display_dealer_hit(value)
+	puts "The dealer has decided to hit with #{value}!"
 end 
 
-def dealer_hit!(deck, cards, value)
-	loop do  
-		break if value > STAY_VALUE
-		hit!(deck, cards)
-		display_dealer_cards(cards)
-		value = add_values!(cards)
-	end 
-	value
+def display_dealer_stay(value)
+	puts "The dealer has decided to stay at #{value}!"
+end 
+
+def display_dealer_bust(value)
+	puts "Boo hoo! The dealer busted at #{value}."
 end 
 
 def dealer_turn!(deck, cards, value)
-	if value < STAY_VALUE
-		display_dealer_hit
-		value = dealer_hit!(deck, cards, value)
-	
-	else
-		display_dealer_stay		
-	end
-	
+	loop do  
+		if value > STAY_VALUE && value < TOP_VALUE
+			display_dealer_stay(value)
+			break
+			
+		elsif value > TOP_VALUE
+			display_dealer_bust(value)
+			break
+			
+		elsif value < STAY_VALUE
+			display_dealer_hit(value)
+		end
+		
+		hit!(deck, cards)
+		display_new_dealer_card(cards)
+		value = add_values!(cards)
+	end 
 	value
 end 
 	
@@ -200,8 +202,9 @@ loop do
 	
 	player_value = player_turn!(deck, player_cards, player_value)
 	p player_value 
-	#break if hit_over_21(player_value, 'Player', 'Dealer')
-		
+	break if hit_over_21(player_value, 'Player', 'Dealer')
+	
+	system "clear"	
 	
 	dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
 	p dealer_value
