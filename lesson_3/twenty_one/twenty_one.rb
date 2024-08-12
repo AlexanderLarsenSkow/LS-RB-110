@@ -147,20 +147,22 @@ def player_turn!(deck, cards, value)
 end 
 
 def display_new_dealer_card(cards)
-	system "clear"
-	sleep 1
+	sleep 0.4
 	puts "The dealer hit the #{cards.keys.last}!"
 end 
 
 def display_dealer_hit(value)
+	sleep 0.4
 	puts "The dealer has decided to hit with #{value}!"
 end 
 
 def display_dealer_stay(value)
+	sleep 0.4
 	puts "The dealer has decided to stay at #{value}!"
 end 
 
 def display_dealer_bust(value)
+	sleep 0.4
 	puts "Boo hoo! The dealer busted at #{value}."
 end 
 
@@ -227,7 +229,7 @@ loop do
 	
 		dealer_cards = initial_deal!(deck)
 		display_dealer_card(dealer_cards.keys)
-		p dealer_value = add_values!(dealer_cards)
+		dealer_value = add_values!(dealer_cards)
 	
 		if dealt_twenty_one(player_value, dealer_value)
 			determine_winner_for_blackjack(player_value, dealer_value) 
