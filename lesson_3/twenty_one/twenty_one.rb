@@ -142,22 +142,22 @@ def player_turn!(deck, cards, value)
 end
 
 def display_new_dealer_card(cards)
-  sleep 0.4
+  sleep 0.8
   puts "The dealer hit the #{cards.keys.last}!"
 end
 
 def display_dealer_hit(value)
-  sleep 0.4
+  sleep 0.8
   puts "The dealer has decided to hit with #{value}!"
 end
 
 def display_dealer_stay(value)
-  sleep 0.4
+  sleep 0.8
   puts "The dealer has decided to stay at #{value}!"
 end
 
 def display_dealer_bust(value)
-  sleep 0.4
+  sleep 0.8
   puts "Boo hoo! The dealer busted at #{value}."
 end
 

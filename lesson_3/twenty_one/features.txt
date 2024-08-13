@@ -167,3 +167,15 @@ Dealer Turn
 		- Display dealer_hit- shows the new cards.
 		
 		Do we need a method like player_hit! that does all the things at once? Idk. Is that kind of method even good?
+		
+		Things I still Need:
+		- Display the Dealer's hidden card when it's their turn
+		- Display the dealer's unknown card if they get blackjack.
+
+		- I need a joinand method that displays the entire cards array in line and puts and in there too.
+		- I need to think about refactoring player_turn into one or two more methods.
+		
+		- Display the Values for player and dealer with each change.
+		- Display the value of 21 if the player hits that. Right now, it just breaks.
+
+		
