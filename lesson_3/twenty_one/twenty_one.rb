@@ -71,9 +71,10 @@ def join_and(cards)
   display.join
 end 
 
-def display_player_deal(player_cards)
+def display_player_deal(player_cards, value)
   system "clear"
   puts "You have the #{join_and(player_cards)}!"
+  puts "You're at #{value}!" 
 end
 
 def display_dealer_card(dealer_cards)
@@ -117,8 +118,9 @@ end
 
 def player_hit!(deck, cards)
   hit!(deck, cards)
-  display_player_deal(cards)
-  add_values!(cards)
+  value = add_values!(cards)
+  display_player_deal(cards, value)
+  value
 end
 
 def display_hit_results(value)
@@ -232,8 +234,9 @@ loop do
     deck = initialize_deck
 
     player_cards = initial_deal!(deck)
-    display_player_deal(player_cards)
-    p player_value = add_values!(player_cards)
+    player_value = add_values!(player_cards)
+    display_player_deal(player_cards, player_value)
+
 
     dealer_cards = initial_deal!(deck)
     display_dealer_card(dealer_cards.keys)
