@@ -78,7 +78,7 @@ def display_player_deal(player_cards, value)
 end
 
 def display_dealer_card(dealer_cards)
-  puts "The dealer has the #{dealer_cards[0]} and an unknown card."
+  puts "The dealer has the #{dealer_cards[1]} and an unknown card."
 end
 
 def dealt_twenty_one(player_value, dealer_value)
@@ -156,29 +156,38 @@ def player_turn!(deck, cards, value)
   value
 end
 
+def reveal_dealer_card(dealer_cards, value)
+  puts "The dealer reveals the #{dealer_cards.keys[0]}!"
+  puts "They have the #{join_and(dealer_cards)} at #{value}!"
+  sleep 2
+end 
+
 def display_new_dealer_card(cards)
-  sleep 0.8
+  sleep 1.2
+  system "clear"
   puts "The dealer hit the #{cards.keys.last}!"
 end
 
 def display_dealer_hit(value)
-  sleep 0.8
+  sleep 1.2
   puts "The dealer has decided to hit with #{value}!"
 end
 
 def display_dealer_stay(value)
-  sleep 0.8
+  sleep 1.2
+  system "clear"
   puts "The dealer has decided to stay at #{value}!"
 end
 
 def display_dealer_bust(value)
-  sleep 0.8
+  sleep 1.2
   puts "Boo hoo! The dealer busted at #{value}."
 end
 
 def dealer_turn!(deck, cards, value)
+  reveal_dealer_card(cards, value)
   loop do
-    if value > STAY_VALUE && value < TOP_VALUE
+    if value >= STAY_VALUE && value <= TOP_VALUE
       display_dealer_stay(value)
       break
 
@@ -228,7 +237,7 @@ def display_hand_winner(winner, player_value, dealer_value)
 end
 
 loop do
-  puts "wtf Welcome to 21!"
+  #puts "wtf Welcome to 21!"
 
   loop do
     deck = initialize_deck
@@ -237,18 +246,16 @@ loop do
     player_value = add_values!(player_cards)
     display_player_deal(player_cards, player_value)
 
-
     dealer_cards = initial_deal!(deck)
     display_dealer_card(dealer_cards.keys)
     dealer_value = add_values!(dealer_cards)
-
+    
     if dealt_twenty_one(player_value, dealer_value)
       determine_winner_for_blackjack(player_value, dealer_value)
       break
     end
 
     player_value = player_turn!(deck, player_cards, player_value)
-    p player_value
 
     break if hit_over_21(player_value, 'Player', 'Dealer')
 
@@ -260,10 +267,10 @@ loop do
     display_hand_winner(winner, player_value, dealer_value)
     break
   end
-  # system "clear"
+
   puts "Play again? Y / N"
   answer = gets.chomp.capitalize
-
+  system "clear"
   break if answer.start_with?('N')
 end
 
