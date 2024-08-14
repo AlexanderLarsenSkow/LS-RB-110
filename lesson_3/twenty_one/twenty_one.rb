@@ -56,11 +56,24 @@ def add_values!(cards)
   cards.values.sum
 end
 
+def join_and(cards)
+  display = cards.keys.map do |card|
+    if card == cards.keys.last
+      "and the #{card}"
+    
+    elsif cards.keys.size > 2
+      "the #{card}, "
+      
+    else 
+      "#{card} "
+    end
+  end 
+  display.join
+end 
+
 def display_player_deal(player_cards)
   system "clear"
-  player_cards.each do |card|
-    puts "You have the #{card}."
-  end
+  puts "You have the #{join_and(player_cards)}!"
 end
 
 def display_dealer_card(dealer_cards)
@@ -104,7 +117,7 @@ end
 
 def player_hit!(deck, cards)
   hit!(deck, cards)
-  display_player_deal(cards.keys)
+  display_player_deal(cards)
   add_values!(cards)
 end
 
@@ -219,7 +232,7 @@ loop do
     deck = initialize_deck
 
     player_cards = initial_deal!(deck)
-    display_player_deal(player_cards.keys)
+    display_player_deal(player_cards)
     p player_value = add_values!(player_cards)
 
     dealer_cards = initial_deal!(deck)
