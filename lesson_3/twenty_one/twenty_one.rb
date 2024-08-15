@@ -151,7 +151,8 @@ def display_hit_results(value)
   end
 end
 
-def player_turn!(deck, cards, value)
+def player_turn!(deck, cards)
+  value = add_values!(cards)
   loop do
     if value == TOP_VALUE || value > TOP_VALUE
       break
@@ -203,7 +204,8 @@ def display_dealer_bust(value)
   puts "Boo hoo! The dealer busted at #{value}."
 end
 
-def dealer_turn!(deck, cards, value)
+def dealer_turn!(deck, cards)
+  value = add_values!(cards)
   reveal_dealer_card(cards, value)
   loop do
     if value >= STAY_VALUE && value <= TOP_VALUE
@@ -284,13 +286,13 @@ loop do
       break
     end
 
-    player_value = player_turn!(deck, player_cards, player_value)
+    player_value = player_turn!(deck, player_cards)
 
     break if hit_over_21(player_value, 'Player', 'Dealer')
 
     system "clear"
 
-    dealer_value = dealer_turn!(deck, dealer_cards, dealer_value)
+    dealer_value = dealer_turn!(deck, dealer_cards)
 
     winner = determine_hand_winner(player_value, dealer_value)
     display_hand_winner(winner, player_value, dealer_value)
