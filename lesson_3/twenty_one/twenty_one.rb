@@ -228,21 +228,21 @@ def dealer_turn!(deck, cards)
 end
 
 def determine_hand_winner(player_value, dealer_value)
-  if player_value > dealer_value && player_value <= TOP_VALUE
-    "Player"
-
-  elsif dealer_value > player_value && dealer_value <= TOP_VALUE
+  if player_value > TOP_VALUE
     "Dealer"
-
+    
   elsif dealer_value > TOP_VALUE
     "Player"
-
-  elsif player_value > TOP_VALUE
-    "Dealer"
-
-  elsif player_value == dealer_value
+    
+  elsif player_value == dealer_value 
     nil
-  end
+    
+  elsif dealer_value > player_value 
+    "Dealer"
+  
+  else
+    "Player"
+  end 
 end
 
 def display_hand_winner(winner, player_value, dealer_value)
