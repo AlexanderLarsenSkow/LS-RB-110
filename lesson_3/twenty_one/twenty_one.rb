@@ -82,7 +82,10 @@ def display_dealer_card(dealer_cards)
 end
 
 
-def dealt_twenty_one(player_value, dealer_value)
+def dealt_twenty_one(player_cards, dealer_cards)
+  player_value = player_cards.values.sum
+  dealer_value = dealer_cards.values.sum
+  
   if player_value == TOP_VALUE && player_value != dealer_value
     "Player"
 
@@ -99,8 +102,8 @@ def reveal_dealer_card_for_blackjack(dealer_cards)
   puts "The dealer reveals the #{dealer_cards.keys[0]}."
 end 
 
-def determine_winner_for_blackjack(player_value, dealer_value)
-  blackjack = dealt_twenty_one(player_value, dealer_value)
+def determine_winner_for_blackjack(player_cards, dealer_cards)
+  blackjack = dealt_twenty_one(player_cards, dealer_cards)
   sleep 4
   system "clear"
   case blackjack
