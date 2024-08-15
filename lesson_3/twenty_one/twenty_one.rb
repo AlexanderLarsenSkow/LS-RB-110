@@ -33,9 +33,10 @@ def initial_deal!(deck)
   2.times do |_|
     card = deck.keys.sample
     cards[card] = deck[card]
+    deck.delete_if { |card, _value| cards.include?(card) }
   end
 
-  deck.delete_if { |card, _value| cards.include?(card) }
+  #deck.delete_if { |card, _value| cards.include?(card) }
   cards
 end
 
@@ -78,8 +79,9 @@ def display_player_deal(player_cards, value)
 end
 
 def display_dealer_card(dealer_cards)
-  puts "The dealer has the #{dealer_cards[1]} and an unknown card."
+  puts "The dealer has the #{dealer_cards.keys[1]} and an unknown card."
 end
+
 
 def dealt_twenty_one(player_value, dealer_value)
   if player_value == TOP_VALUE && player_value != dealer_value
@@ -94,12 +96,22 @@ def dealt_twenty_one(player_value, dealer_value)
   end
 end
 
+def reveal_dealer_card_for_blackjack(dealer_cards)
+  puts "The dealer reveals the #{dealer_cards.keys[0]}."
+end 
+
 def determine_winner_for_blackjack(player_value, dealer_value)
   blackjack = dealt_twenty_one(player_value, dealer_value)
   case blackjack
-  when "Player" then puts "Blackjack! You win this round."
-  when "Dealer" then puts "The dealer got Blackjack! You lost this time."
-  when "Tie" then puts "Double Blackjack! What are the odds? Tie game!"
+  when "Player" 
+    puts "Blackjack! You win this round."
+  
+  when "Dealer" 
+    puts "The dealer got Blackjack! You lost this time."
+    
+  when "Tie" 
+    puts "Double Blackjack! What are the odds? Tie game!"
+    
   end
 end
 
@@ -240,6 +252,7 @@ loop do
   #puts "wtf Welcome to 21!"
 
   loop do
+    system "clear"
     deck = initialize_deck
 
     player_cards = initial_deal!(deck)
@@ -247,10 +260,11 @@ loop do
     display_player_deal(player_cards, player_value)
 
     dealer_cards = initial_deal!(deck)
-    display_dealer_card(dealer_cards.keys)
+    display_dealer_card(dealer_cards)
     dealer_value = add_values!(dealer_cards)
     
     if dealt_twenty_one(player_value, dealer_value)
+      reveal_dealer_card_for_blackjack(dealer_cards)
       determine_winner_for_blackjack(player_value, dealer_value)
       break
     end
