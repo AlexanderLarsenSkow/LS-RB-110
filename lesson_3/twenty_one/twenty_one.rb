@@ -270,34 +270,35 @@ def starting_deal(deck)
   cards
 end 
 
-loop do
-  #puts "wtf Welcome to 21!"
-
+def final_outcome(deck, player_cards, dealer_cards)
   loop do
-    system "clear"
-    deck = initialize_deck
-
-    player_cards = starting_deal(deck)
-    dealer_cards = starting_deal(deck)
-    
-    if dealt_twenty_one(player_cards, dealer_cards)
-      reveal_dealer_card_for_blackjack(dealer_cards)
-      determine_winner_for_blackjack(player_cards, dealer_cards)
-      break
-    end
-
     player_value = player_turn!(deck, player_cards)
-
+    
     break if hit_over_21(player_value, 'Player', 'Dealer')
-
     system "clear"
-
+    
     dealer_value = dealer_turn!(deck, dealer_cards)
-
+    
     winner = determine_hand_winner(player_value, dealer_value)
     display_hand_winner(winner, player_value, dealer_value)
     break
+  end 
+end 
+
+loop do
+
+  system "clear"
+  deck = initialize_deck
+
+  player_cards = starting_deal(deck)
+  dealer_cards = starting_deal(deck)
+    
+  if dealt_twenty_one(player_cards, dealer_cards)
+    reveal_dealer_card_for_blackjack(dealer_cards)
+    determine_winner_for_blackjack(player_cards, dealer_cards)
   end
+    
+  final_outcome(deck, player_cards, dealer_cards)
 
   puts "Play again? Y / N"
   answer = gets.chomp.capitalize
