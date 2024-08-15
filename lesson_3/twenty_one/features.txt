@@ -170,12 +170,34 @@ Dealer Turn
 		
 		Things I still Need:
 		- Display the Dealer's hidden card when it's their turn # DONE
-		- Display the dealer's unknown card if they get blackjack. 
+		- Display the dealer's unknown card if they get blackjack. # DONE
 
 		- I need a joinand method that displays the entire cards array in line and puts and in there too. # DONE
 		- I need to think about refactoring player_turn into one or two more methods. # DON'T WORRY
 		
 		- Display the Values for player and dealer with each change. # DONE 
-		- Display the value of 21 if the player hits that. Right now, it just breaks. 
+		- Display the value of 21 if the player hits that. Right now, it just breaks. # DONE
 
 		
+		FINAL WORKLOAD
+		- Fix the Main Loop
+		- Refactor Dealer_Turn
+		- Create an introduction / rules displays 
+		- Create a scoreboard
+		- Create a prompt method and migrate displays to YAML file
+		
+	
+		Fixing the Main Loop 
+		- The trouble is that the main loop is kind of a mess.
+		- I have multiple return values that need to handled: 
+			- player_cards, dealer_cards, player_value, and dealer_value
+		- What if we simple call all those things inside a starting_deal method then don't worry about its return value
+		
+		
+		
+		
+		
+		
+		
+	
+
