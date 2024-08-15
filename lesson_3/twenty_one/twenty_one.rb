@@ -31,12 +31,11 @@ end
 def initial_deal!(deck)
   cards = {}
   2.times do |_|
-    card = deck.keys.sample
-    cards[card] = deck[card]
-    deck.delete_if { |card, _value| cards.include?(card) }
+    dealt_card = deck.keys.sample
+    cards[dealt_card] = deck[dealt_card]
+    deck.delete_if { |card, _| cards.include?(card) }
   end
 
-  #deck.delete_if { |card, _value| cards.include?(card) }
   cards
 end
 
@@ -102,6 +101,8 @@ end
 
 def determine_winner_for_blackjack(player_value, dealer_value)
   blackjack = dealt_twenty_one(player_value, dealer_value)
+  sleep 4
+  system "clear"
   case blackjack
   when "Player" 
     puts "Blackjack! You win this round."
@@ -113,6 +114,8 @@ def determine_winner_for_blackjack(player_value, dealer_value)
     puts "Double Blackjack! What are the odds? Tie game!"
     
   end
+  sleep 2.5
+  system "clear"
 end
 
 def hit!(deck, cards)
@@ -138,6 +141,7 @@ end
 def display_hit_results(value)
   if value == TOP_VALUE
     puts "That's BlackJack! You win this round."
+    sleep 2
 
   elsif hit_over_21(value, 'Player', 'Dealer')
     puts "Oops! You busted!"
