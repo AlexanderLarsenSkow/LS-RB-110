@@ -252,6 +252,19 @@ def display_hand_winner(winner, player_value, dealer_value)
   end
 end
 
+def starting_deal(deck)
+    cards = initial_deal!(deck)
+    value = add_values!(cards)
+  if deck.size == 50
+    display_player_deal(cards, value)
+  
+  else
+    display_dealer_card(cards)
+  end
+  
+  cards
+end 
+
 loop do
   #puts "wtf Welcome to 21!"
 
@@ -259,17 +272,12 @@ loop do
     system "clear"
     deck = initialize_deck
 
-    player_cards = initial_deal!(deck)
-    player_value = add_values!(player_cards)
-    display_player_deal(player_cards, player_value)
-
-    dealer_cards = initial_deal!(deck)
-    display_dealer_card(dealer_cards)
-    dealer_value = add_values!(dealer_cards)
+    player_cards = starting_deal(deck)
+    dealer_cards = starting_deal(deck)
     
-    if dealt_twenty_one(player_value, dealer_value)
+    if dealt_twenty_one(player_cards, dealer_cards)
       reveal_dealer_card_for_blackjack(dealer_cards)
-      determine_winner_for_blackjack(player_value, dealer_value)
+      determine_winner_for_blackjack(player_cards, dealer_cards)
       break
     end
 
