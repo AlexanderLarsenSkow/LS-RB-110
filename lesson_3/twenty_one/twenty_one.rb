@@ -285,6 +285,19 @@ def final_outcome(deck, player_cards, dealer_cards)
   end 
 end 
 
+def play_again?
+  answer = ''
+  loop do 
+    puts "Play again? Y / N"
+    answer = gets.chomp.capitalize
+    system "clear"
+    
+    break if !answer.start_with?('N')
+    puts "Enter yes or no."
+  end   
+  answer.start_with?('N')
+end 
+
 loop do
 
   system "clear"
@@ -296,14 +309,12 @@ loop do
   if dealt_twenty_one(player_cards, dealer_cards)
     reveal_dealer_card_for_blackjack(dealer_cards)
     determine_winner_for_blackjack(player_cards, dealer_cards)
+    break if play_again?
   end
     
   final_outcome(deck, player_cards, dealer_cards)
 
-  puts "Play again? Y / N"
-  answer = gets.chomp.capitalize
-  system "clear"
-  break if answer.start_with?('N')
+  break if play_again?
 end
 
 puts "Thanks for playing!"
