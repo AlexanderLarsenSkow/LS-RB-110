@@ -218,20 +218,24 @@ def dealer_hit!(deck, cards)
   add_values!(cards)
 end 
 
+def stay?(value)
+  value > STAY_VALUE
+end 
+
 def dealer_turn!(deck, cards)
   value = add_values!(cards)
   reveal_dealer_card(cards, value, false)
   
   loop do
-    if value >= STAY_VALUE && value <= TOP_VALUE
-      display_dealer_stay(value)
-      break
-
-    elsif busted?(value)
+    if busted?(value)
       display_dealer_bust(value)
       break
 
-    elsif value < STAY_VALUE
+    elsif stay?(value)
+      display_dealer_stay(value)
+      break
+
+    elsif !stay?(value)
       display_dealer_hit(value)
     end
 
