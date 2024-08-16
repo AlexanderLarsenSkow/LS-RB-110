@@ -8,6 +8,38 @@ SUITS = ["Hearts", "Diamonds", "Spades", "Clubs"]
 TOP_VALUE = 21
 STAY_VALUE = 17
 
+def prompt(message)
+  puts "<< #{message}"
+end 
+
+def display_welcome
+  prompt "Welcome to Twenty One!"
+  sleep 2
+end 
+
+def display_rules
+  system "clear"
+  puts"     The rules are simple.
+
+   Hit over 21 and you lose.
+
+   Hit 21 exactly and you win,
+ unless the dealer hits 21 as well.
+
+  Hit higher than the Dealer,
+          You win.
+
+         Hit lower,
+         You lose."
+sleep 8
+end 
+
+def display_play
+  system "clear"
+  prompt "Let's play."
+  sleep 2
+end 
+
 def initialize_deck
   deck = {}
   card_value = 2
@@ -252,6 +284,12 @@ def display_hand_winner(winner, player_value, dealer_value)
   end
 end
 
+def introduce_game
+  display_welcome
+  display_rules
+  display_play
+end 
+
 def starting_deal(deck)
   cards = initial_deal!(deck)
   value = add_values!(cards)
@@ -308,6 +346,8 @@ def play_again?
   end
   answer.start_with?('Y')
 end
+
+introduce_game
 
 loop do
   system "clear"
