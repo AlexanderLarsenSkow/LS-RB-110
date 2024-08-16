@@ -245,14 +245,14 @@ def dealer_turn!(deck, cards)
 end
 
 def determine_hand_winner(player_value, dealer_value)
-  if dealer_value > TOP_VALUE || player_value > dealer_value
-    "Player"
-    
-  elsif player_value > TOP_VALUE || dealer_value > player_value
+  player_bust = busted?(player_value)
+  dealer_bust = busted?(dealer_value)
+  
+  if player_bust || (dealer_value > player_value && !dealer_bust)
     "Dealer"
-    
-  elsif dealer_value == player_value
-    nil
+  
+  elsif dealer_bust || (player_value > dealer_value && !player_bust) 
+    "Player"
   end 
 end 
 
@@ -282,18 +282,17 @@ def starting_deal(deck)
 end 
 
 def final_outcome(deck, player_cards, dealer_cards)
-  loop do
-    player_value = player_turn!(deck, player_cards)
+  player_value = player_turn!(deck, player_cards)
+  dealer_value = add_values!(dealer_cards)
     
-    break if busted?(player_value)
+    
+  if !busted?(player_value)  
     system "clear"
-    
     dealer_value = dealer_turn!(deck, dealer_cards)
-    
-    winner = determine_hand_winner(player_value, dealer_value)
-    display_hand_winner(winner, player_value, dealer_value)
-    break
   end 
+    
+  winner = determine_hand_winner(player_value, dealer_value)
+  display_hand_winner(winner, player_value, dealer_value)
 end 
 
 def play_again?
