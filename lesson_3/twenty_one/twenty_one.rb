@@ -154,8 +154,12 @@ def busted?(value)
   value > TOP_VALUE
 end
 
+def hit_twenty_one?(value)
+  value == TOP_VALUE
+end 
+
 def display_hit_results(value)
-  if value == TOP_VALUE
+  if hit_twenty_one?(value)
     puts "Well played. Let's see if the dealer can hit 21 too."
     sleep 2
 
@@ -167,9 +171,7 @@ end
 def player_turn!(deck, cards)
   value = add_values!(cards)
   loop do
-    if value == TOP_VALUE || value > TOP_VALUE
-      break
-    end
+    break if (busted?(value) || hit_twenty_one?(value))
 
     puts "Do you want to hit or stay?"
     answer = gets.chomp.capitalize
@@ -179,7 +181,6 @@ def player_turn!(deck, cards)
       display_hit_results(value)
 
     elsif answer.start_with?('S')
-      puts "Good luck!"
       break
 
     else
@@ -280,7 +281,7 @@ def final_outcome(deck, player_cards, dealer_cards)
   loop do
     player_value = player_turn!(deck, player_cards)
     
-    break if hit_over_21(player_value, 'Player', 'Dealer')
+    break if busted?(player_value)
     system "clear"
     
     dealer_value = dealer_turn!(deck, dealer_cards)
