@@ -60,47 +60,40 @@ def join_and(cards)
   display = cards.keys.map do |card|
     if card == cards.keys.last
       "and the #{card}"
-    
+
     elsif cards.keys.size > 2
       "the #{card}, "
-      
-    else 
+
+    else
       "#{card} "
     end
-  end 
+  end
   display.join
-end 
+end
 
 def display_player_deal(player_cards, value)
   system "clear"
   puts "You have the #{join_and(player_cards)}!"
-  puts "You're at #{value}!" 
+  puts "You're at #{value}!"
 end
 
 def display_dealer_card(dealer_cards)
   puts "The dealer has the #{dealer_cards.keys[1]} and an unknown card."
 end
 
-def dealt_twenty_one?(player_cards, dealer_cards)
-  player_value = player_cards.values.sum
-  dealer_value = dealer_cards.values.sum
-  
-  player_value == TOP_VALUE || dealer_value == TOP_VALUE
-end
-
-def reveal_dealer_card(dealer_cards, value, blackjack = true)
+def reveal_dealer_card(dealer_cards, value, blackjack: true)
   puts "The dealer reveals the #{dealer_cards.keys[0]}!"
-  
-  if blackjack == false
+
+  if !blackjack
     puts "They have the #{join_and(dealer_cards)} at #{value}!"
     sleep 2
   end
-end 
+end
 
 def determine_blackjack_winner(player_value, dealer_value)
   if player_value == TOP_VALUE && player_value == dealer_value
     "Tie"
-    
+
   elsif player_value == TOP_VALUE
     "Player"
 
@@ -113,28 +106,19 @@ def display_blackjack_winner(winner)
   sleep 4
   system "clear"
   case winner
-  when "Player" 
+  when "Player"
     puts "Blackjack! You win this round."
-  
-  when "Dealer" 
+
+  when "Dealer"
     puts "The dealer got Blackjack! You lost this time."
-    
-  when "Tie" 
+
+  when "Tie"
     puts "Double Blackjack! What are the odds? Tie game!"
-    
+
   end
   sleep 2.5
   system "clear"
 end
-
-def blackjack(player_cards, dealer_cards)
-  player_value = player_cards.values.sum
-  dealer_value = dealer_cards.values.sum
-  
-  winner = determine_blackjack_winner(player_value, dealer_value)
-  reveal_dealer_card(dealer_cards, dealer_value)
-  display_blackjack_winner(winner)
-end 
 
 def hit!(deck, cards)
   card = deck.keys.sample
@@ -156,7 +140,7 @@ end
 
 def hit_twenty_one?(value)
   value == TOP_VALUE
-end 
+end
 
 def display_hit_results(value)
   if hit_twenty_one?(value)
@@ -171,7 +155,7 @@ end
 def player_turn!(deck, cards)
   value = add_values!(cards)
   loop do
-    break if (busted?(value) || hit_twenty_one?(value))
+    break if busted?(value) || hit_twenty_one?(value)
 
     puts "Do you want to hit or stay?"
     answer = gets.chomp.capitalize
@@ -216,16 +200,16 @@ def dealer_hit!(deck, cards)
   hit!(deck, cards)
   display_new_dealer_card(cards)
   add_values!(cards)
-end 
+end
 
 def stay?(value)
   value > STAY_VALUE
-end 
+end
 
 def dealer_turn!(deck, cards)
   value = add_values!(cards)
-  reveal_dealer_card(cards, value, false)
-  
+  reveal_dealer_card(cards, value, blackjack: false)
+
   loop do
     if busted?(value)
       display_dealer_bust(value)
@@ -247,14 +231,14 @@ end
 def determine_hand_winner(player_value, dealer_value)
   player_bust = busted?(player_value)
   dealer_bust = busted?(dealer_value)
-  
+
   if player_bust || (dealer_value > player_value && !dealer_bust)
     "Dealer"
-  
-  elsif dealer_bust || (player_value > dealer_value && !player_bust) 
+
+  elsif dealer_bust || (player_value > dealer_value && !player_bust)
     "Player"
-  end 
-end 
+  end
+end
 
 def display_hand_winner(winner, player_value, dealer_value)
   if winner == 'Player'
@@ -269,60 +253,74 @@ def display_hand_winner(winner, player_value, dealer_value)
 end
 
 def starting_deal(deck)
-    cards = initial_deal!(deck)
-    value = add_values!(cards)
+  cards = initial_deal!(deck)
+  value = add_values!(cards)
+
   if deck.size == 50
     display_player_deal(cards, value)
-  
+
   else
     display_dealer_card(cards)
   end
-  
   cards
-end 
+end
+
+def dealt_twenty_one?(player_cards, dealer_cards)
+  player_value = player_cards.values.sum
+  dealer_value = dealer_cards.values.sum
+
+  player_value == TOP_VALUE || dealer_value == TOP_VALUE
+end
+
+def blackjack_outcome(player_cards, dealer_cards)
+  player_value = player_cards.values.sum
+  dealer_value = dealer_cards.values.sum
+
+  winner = determine_blackjack_winner(player_value, dealer_value)
+  reveal_dealer_card(dealer_cards, dealer_value)
+  display_blackjack_winner(winner)
+end
 
 def final_outcome(deck, player_cards, dealer_cards)
   player_value = player_turn!(deck, player_cards)
   dealer_value = add_values!(dealer_cards)
-    
-    
-  if !busted?(player_value)  
+
+  if !busted?(player_value)
     system "clear"
     dealer_value = dealer_turn!(deck, dealer_cards)
-  end 
-    
+  end
+
   winner = determine_hand_winner(player_value, dealer_value)
   display_hand_winner(winner, player_value, dealer_value)
-end 
+end
 
 def play_again?
   answer = ''
-  loop do 
+  loop do
     puts "Play again? Y / N"
     answer = gets.chomp.capitalize
     system "clear"
-    
+
     if answer.start_with?('N') || answer.start_with?('Y')
       break
-    end 
+    end
     puts "Enter yes or no."
-  end   
+  end
   answer.start_with?('Y')
-end 
+end
 
 loop do
-
   system "clear"
   deck = initialize_deck
 
   player_cards = starting_deal(deck)
   dealer_cards = starting_deal(deck)
-    
+
   if dealt_twenty_one?(player_cards, dealer_cards)
-    blackjack(player_cards, dealer_cards)
+    blackjack_outcome(player_cards, dealer_cards)
     next if play_again?
   end
-    
+
   final_outcome(deck, player_cards, dealer_cards)
 
   break if !play_again?
