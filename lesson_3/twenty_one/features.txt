@@ -204,7 +204,13 @@ Dealer Turn
 		- display display rules
 		- game start
 		
-		
+		Score 
+		- Need to Initialize the score: hash data structure 
+				{'Player' => 0, 'Dealer' => 0}
+		- also need to find a good place to display the score	- THIS FIRST	
+		- Then pass the score around and add 1 if there's a winner
+		- Need to add one for blackjack winner 
+		- and one for the fnal outcome winner if no blackjack
 		
 	
 
