@@ -86,15 +86,14 @@ def dealt_twenty_one(player_cards, dealer_cards)
   player_value = player_cards.values.sum
   dealer_value = dealer_cards.values.sum
   
-  if player_value == TOP_VALUE && player_value != dealer_value
+  if player_value == TOP_VALUE && player_value == dealer_value
+    "Tie"
+    
+  elsif player_value == TOP_VALUE
     "Player"
 
-  elsif dealer_value == TOP_VALUE && dealer_value != player_value
+  elsif dealer_value == TOP_VALUE
     "Dealer"
-
-  elsif player_value == TOP_VALUE && player_value == dealer_value
-    "Tie"
-
   end
 end
 
@@ -228,22 +227,16 @@ def dealer_turn!(deck, cards)
 end
 
 def determine_hand_winner(player_value, dealer_value)
-  if player_value > TOP_VALUE
-    "Dealer"
-    
-  elsif dealer_value > TOP_VALUE
+  if dealer_value > TOP_VALUE || player_value > dealer_value
     "Player"
     
-  elsif player_value == dealer_value 
+  elsif player_value > TOP_VALUE || dealer_value > player_value
+    "Dealer"
+    
+  elsif dealer_value == player_value
     nil
-    
-  elsif dealer_value > player_value 
-    "Dealer"
-  
-  else
-    "Player"
   end 
-end
+end 
 
 def display_hand_winner(winner, player_value, dealer_value)
   if winner == 'Player'
@@ -297,7 +290,7 @@ def play_again?
     end 
     puts "Enter yes or no."
   end   
-  answer.start_with?('N')
+  answer.start_with?('Y')
 end 
 
 loop do
@@ -311,12 +304,12 @@ loop do
   if dealt_twenty_one(player_cards, dealer_cards)
     reveal_dealer_card_for_blackjack(dealer_cards)
     determine_winner_for_blackjack(player_cards, dealer_cards)
-    break if play_again?
+    next if play_again?
   end
     
   final_outcome(deck, player_cards, dealer_cards)
 
-  break if play_again?
+  break if !play_again?
 end
 
 puts "Thanks for playing!"
