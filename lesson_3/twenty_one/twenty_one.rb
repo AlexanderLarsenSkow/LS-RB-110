@@ -81,11 +81,14 @@ def display_dealer_card(dealer_cards)
   puts "The dealer has the #{dealer_cards.keys[1]} and an unknown card."
 end
 
-
-def dealt_twenty_one(player_cards, dealer_cards)
+def dealt_twenty_one?(player_cards, dealer_cards)
   player_value = player_cards.values.sum
   dealer_value = dealer_cards.values.sum
   
+  player_value == TOP_VALUE || dealer_value == TOP_VALUE
+end 
+
+def determine_blackjack_winner(player_value, dealer_value)
   if player_value == TOP_VALUE && player_value == dealer_value
     "Tie"
     
@@ -101,11 +104,10 @@ def reveal_dealer_card_for_blackjack(dealer_cards)
   puts "The dealer reveals the #{dealer_cards.keys[0]}."
 end 
 
-def determine_winner_for_blackjack(player_cards, dealer_cards)
-  blackjack = dealt_twenty_one(player_cards, dealer_cards)
+def display_blackjack_winner(winner)
   sleep 4
   system "clear"
-  case blackjack
+  case winner
   when "Player" 
     puts "Blackjack! You win this round."
   
@@ -119,6 +121,15 @@ def determine_winner_for_blackjack(player_cards, dealer_cards)
   sleep 2.5
   system "clear"
 end
+
+def blackjack(player_cards, dealer_cards)
+  player_value = player_cards.values.sum
+  dealer_value = dealer_cards.values.sum
+  
+  winner = determine_blackjack_winner(player_value, dealer_value)
+  reveal_dealer_card_for_blackjack(dealer_cards)
+  display_blackjack_winner(winner)
+end 
 
 def hit!(deck, cards)
   card = deck.keys.sample
@@ -301,9 +312,8 @@ loop do
   player_cards = starting_deal(deck)
   dealer_cards = starting_deal(deck)
     
-  if dealt_twenty_one(player_cards, dealer_cards)
-    reveal_dealer_card_for_blackjack(dealer_cards)
-    determine_winner_for_blackjack(player_cards, dealer_cards)
+  if dealt_twenty_one?(player_cards, dealer_cards)
+    blackjack(player_cards, dealer_cards)
     next if play_again?
   end
     
