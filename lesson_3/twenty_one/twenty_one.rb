@@ -40,6 +40,17 @@ def display_play
   sleep 2
 end
 
+def initialize_score
+  score = {}
+  score['Player'] = 0
+  score['Dealer'] = 0
+  score
+end 
+
+def display_score(score)
+  puts "Player: #{score['Player']},   Dealer: #{score['Dealer']} "
+end 
+
 def initialize_deck
   deck = {}
   card_value = 2
