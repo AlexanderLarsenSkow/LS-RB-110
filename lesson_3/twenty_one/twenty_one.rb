@@ -143,7 +143,7 @@ end
 
 def display_hit_results(value)
   if value == TOP_VALUE
-    puts "That's BlackJack! You win this round."
+    puts "Well played. Let's see if the dealer can hit 21 too."
     sleep 2
 
   elsif hit_over_21(value, 'Player', 'Dealer')
@@ -292,7 +292,9 @@ def play_again?
     answer = gets.chomp.capitalize
     system "clear"
     
-    break if !answer.start_with?('N')
+    if answer.start_with?('N') || answer.start_with?('Y')
+      break
+    end 
     puts "Enter yes or no."
   end   
   answer.start_with?('N')
