@@ -143,12 +143,6 @@ def hit!(deck, cards)
   cards
 end
 
-def hit_over_21(value, _current_player, other_player)
-  if value > TOP_VALUE
-    other_player
-  end
-end
-
 def player_hit!(deck, cards)
   hit!(deck, cards)
   value = add_values!(cards)
@@ -156,12 +150,16 @@ def player_hit!(deck, cards)
   value
 end
 
+def busted?(value)
+  value > TOP_VALUE
+end
+
 def display_hit_results(value)
   if value == TOP_VALUE
     puts "Well played. Let's see if the dealer can hit 21 too."
     sleep 2
 
-  elsif hit_over_21(value, 'Player', 'Dealer')
+  elsif busted?(value)
     puts "Oops! You busted!"
   end
 end
@@ -213,15 +211,22 @@ def display_dealer_bust(value)
   puts "Boo hoo! The dealer busted at #{value}."
 end
 
+def dealer_hit!(deck, cards)
+  hit!(deck, cards)
+  display_new_dealer_card(cards)
+  add_values!(cards)
+end 
+
 def dealer_turn!(deck, cards)
   value = add_values!(cards)
   reveal_dealer_card(cards, value, false)
+  
   loop do
     if value >= STAY_VALUE && value <= TOP_VALUE
       display_dealer_stay(value)
       break
 
-    elsif value > TOP_VALUE
+    elsif busted?(value)
       display_dealer_bust(value)
       break
 
@@ -229,9 +234,7 @@ def dealer_turn!(deck, cards)
       display_dealer_hit(value)
     end
 
-    hit!(deck, cards)
-    display_new_dealer_card(cards)
-    value = add_values!(cards)
+    value = dealer_hit!(deck, cards)
   end
   value
 end
