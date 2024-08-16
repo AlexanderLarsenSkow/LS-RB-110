@@ -180,7 +180,7 @@ Dealer Turn
 
 		
 		FINAL WORKLOAD
-		- Fix the Main Loop
+		- Fix the Main Loop 
 		- Refactor Dealer_Turn
 		- Create an introduction / rules displays 
 		- Create a scoreboard
@@ -193,9 +193,16 @@ Dealer Turn
 			- player_cards, dealer_cards, player_value, and dealer_value
 		- What if we simple call all those things inside a starting_deal method then don't worry about its return value
 		
+		Fixing Win Conditions Methods
+			- The issue right now is that there are too many win condition methods.
+			- Let's try to get them tied down.
+			
+		For reveal_dealer_card, can make a boolean default parameter that affects what displays show up.	
 		
-		
-		
+		Introduction: 
+		- display welcome message 
+		- display display rules
+		- game start
 		
 		
 		
