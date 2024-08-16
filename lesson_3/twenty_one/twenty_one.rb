@@ -10,16 +10,16 @@ STAY_VALUE = 17
 
 def prompt(message)
   puts "<< #{message}"
-end 
+end
 
 def display_welcome
   prompt "Welcome to Twenty One!"
   sleep 2
-end 
+end
 
 def display_rules
   system "clear"
-  puts"     The rules are simple.
+  puts("     The rules are simple.
 
    Hit over 21 and you lose.
 
@@ -30,15 +30,15 @@ def display_rules
           You win.
 
          Hit lower,
-         You lose."
+         You lose.")
 sleep 8
-end 
+end
 
 def display_play
   system "clear"
   prompt "Let's play."
   sleep 2
-end 
+end
 
 def initialize_deck
   deck = {}
@@ -177,7 +177,7 @@ end
 def display_hit_results(value)
   if hit_twenty_one?(value)
     puts "Well played. Let's see if the dealer can hit 21 too."
-    sleep 2
+    sleep 4
 
   elsif busted?(value)
     puts "Oops! You busted!"
@@ -235,7 +235,7 @@ def dealer_hit!(deck, cards)
 end
 
 def stay?(value)
-  value > STAY_VALUE
+  value >= STAY_VALUE
 end
 
 def dealer_turn!(deck, cards)
@@ -288,7 +288,7 @@ def introduce_game
   display_welcome
   display_rules
   display_play
-end 
+end
 
 def starting_deal(deck)
   cards = initial_deal!(deck)
