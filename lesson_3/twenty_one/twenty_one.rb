@@ -86,6 +86,15 @@ def dealt_twenty_one?(player_cards, dealer_cards)
   dealer_value = dealer_cards.values.sum
   
   player_value == TOP_VALUE || dealer_value == TOP_VALUE
+end
+
+def reveal_dealer_card(dealer_cards, value, blackjack = true)
+  puts "The dealer reveals the #{dealer_cards.keys[0]}!"
+  
+  if blackjack == false
+    puts "They have the #{join_and(dealer_cards)} at #{value}!"
+    sleep 2
+  end
 end 
 
 def determine_blackjack_winner(player_value, dealer_value)
@@ -99,10 +108,6 @@ def determine_blackjack_winner(player_value, dealer_value)
     "Dealer"
   end
 end
-
-def reveal_dealer_card_for_blackjack(dealer_cards)
-  puts "The dealer reveals the #{dealer_cards.keys[0]}."
-end 
 
 def display_blackjack_winner(winner)
   sleep 4
@@ -127,7 +132,7 @@ def blackjack(player_cards, dealer_cards)
   dealer_value = dealer_cards.values.sum
   
   winner = determine_blackjack_winner(player_value, dealer_value)
-  reveal_dealer_card_for_blackjack(dealer_cards)
+  reveal_dealer_card(dealer_cards, dealer_value)
   display_blackjack_winner(winner)
 end 
 
@@ -186,12 +191,6 @@ def player_turn!(deck, cards)
   value
 end
 
-def reveal_dealer_card(dealer_cards, value)
-  puts "The dealer reveals the #{dealer_cards.keys[0]}!"
-  puts "They have the #{join_and(dealer_cards)} at #{value}!"
-  sleep 2
-end 
-
 def display_new_dealer_card(cards)
   sleep 1.2
   system "clear"
@@ -216,7 +215,7 @@ end
 
 def dealer_turn!(deck, cards)
   value = add_values!(cards)
-  reveal_dealer_card(cards, value)
+  reveal_dealer_card(cards, value, false)
   loop do
     if value >= STAY_VALUE && value <= TOP_VALUE
       display_dealer_stay(value)
