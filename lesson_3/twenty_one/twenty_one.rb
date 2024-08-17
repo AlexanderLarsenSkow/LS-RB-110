@@ -170,8 +170,7 @@ def display_blackjack_winner(winner)
     prompt DISPLAYS['double_blackjack']
 
   end
-  sleep 2.5
-  system "clear"
+  sleep 1.5
 end
 
 def hit!(deck, cards)
@@ -302,7 +301,7 @@ def display_hand_winner(winner, player_value, dealer_value)
     part_one = DISPLAYS['dealer_win_a']
     part_two = DISPLAYS['dealer_win_b']
 
-    prompt "#{part_one} #{dealer_value} #{part_two}"
+    prompt "#{part_one} #{dealer_value}#{part_two}"
 
   elsif !winner
     prompt "#{DISPLAYS['tie']} #{player_value}!"
@@ -395,8 +394,12 @@ loop do
 
   if dealt_twenty_one?(player_cards, dealer_cards)
     determine_blackjack_outcome(player_cards, dealer_cards, score)
-    next if play_again?
-    break if !play_again?
+    if play_again?
+      next
+
+    else
+      break
+    end
   end
 
   determine_final_outcome(deck, player_cards, dealer_cards, score)

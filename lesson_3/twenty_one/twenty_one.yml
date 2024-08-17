@@ -28,7 +28,7 @@ dealer_bust: "Boo hoo! The dealer busted at"
 
 player_win: "Congratulations! You won this hand at"
 dealer_win_a: "The Dealer wins at"
-dealer_win_b: "Good hand."
+dealer_win_b: ". Good hand."
 tie: "You both tie at"
 
 play_again: "Play again? Y / N"
