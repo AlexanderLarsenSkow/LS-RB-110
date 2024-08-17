@@ -3,7 +3,7 @@
 CARDS = ["2", "3", "4", "5", "6",
          "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
-SUITS = ["Hearts", "Diamonds", "Spades", "Clubs"]
+SUITS = ["♠", "♣", "♦", "♥"]
 
 TOP_VALUE = 21
 STAY_VALUE = 17
