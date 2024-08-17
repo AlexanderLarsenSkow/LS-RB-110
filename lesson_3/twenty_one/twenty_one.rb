@@ -31,7 +31,7 @@ def display_rules
 
          Hit lower,
          You lose.")
-sleep 8
+  sleep 8
 end
 
 def display_play
@@ -45,16 +45,17 @@ def initialize_score
   score['Player'] = 0
   score['Dealer'] = 0
   score
-end 
+end
 
 def display_score(score)
-  puts "Player: #{score['Player']},   Dealer: #{score['Dealer']}"
-  puts ""
-end 
+  sleep 2.8
+  system "clear"
+  puts "Player: #{score['Player']}   Dealer: #{score['Dealer']}"
+end
 
 def add_score!(score, winner)
-  score[winner] += 1
-end 
+  score[winner] += 1 unless !winner
+end
 
 def initialize_deck
   deck = {}
@@ -333,7 +334,9 @@ def blackjack_outcome(player_cards, dealer_cards, score)
   winner = determine_blackjack_winner(player_value, dealer_value)
   reveal_dealer_card(dealer_cards, dealer_value)
   display_blackjack_winner(winner)
+
   add_score!(score, winner)
+  display_score(score)
 end
 
 def final_outcome(deck, player_cards, dealer_cards, score)
@@ -347,7 +350,9 @@ def final_outcome(deck, player_cards, dealer_cards, score)
 
   winner = determine_hand_winner(player_value, dealer_value)
   display_hand_winner(winner, player_value, dealer_value)
+
   add_score!(score, winner)
+  display_score(score)
 end
 
 def play_again?
@@ -370,9 +375,7 @@ introduce_game
 score = initialize_score
 
 loop do
-  system "clear"
   deck = initialize_deck
-  display_score(score)
 
   player_cards = starting_deal(deck)
   dealer_cards = starting_deal(deck)
@@ -380,6 +383,7 @@ loop do
   if dealt_twenty_one?(player_cards, dealer_cards)
     blackjack_outcome(player_cards, dealer_cards, score)
     next if play_again?
+    break if !play_again?
   end
 
   final_outcome(deck, player_cards, dealer_cards, score)
