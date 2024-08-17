@@ -31,7 +31,7 @@ def display_rules
 
          Hit lower,
          You lose.")
-sleep 8
+  sleep 8
 end
 
 def display_play
@@ -45,17 +45,17 @@ def initialize_score
   score['Player'] = 0
   score['Dealer'] = 0
   score
-end 
+end
 
 def display_score(score)
   sleep 2.8
   system "clear"
   puts "Player: #{score['Player']}   Dealer: #{score['Dealer']}"
-end 
+end
 
 def add_score!(score, winner)
   score[winner] += 1 unless !winner
-end 
+end
 
 def initialize_deck
   deck = {}
@@ -387,7 +387,7 @@ loop do
   end
 
   final_outcome(deck, player_cards, dealer_cards, score)
-  
+
   break if !play_again?
 end
 
