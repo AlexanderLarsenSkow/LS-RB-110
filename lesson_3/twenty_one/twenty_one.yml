@@ -1,0 +1,37 @@
+welcome: "Welcome to Twenty One!"
+play: "Let's play."
+
+points: "You: %s  Computer: %s"
+
+player_blackjack: "Blackjack! You win this round."
+dealer_blackjack: "The dealer got Blackjack! You lost this time."
+double_blackjack: "Double Blackjack! What are the odds? Tie game!"
+
+player_cards: "You have the"
+player_value: "You're at"
+
+dealer_card_a: "The dealer has the" 
+dealer_card_b: "and an unknown card."
+dealer_reveal: "The dealer reveals the"
+
+player_hit_21: "Well played. Let's see if the dealer can hit 21 too."
+player_busted: "Oops! You busted!"
+
+hit_or_stay: "Do you want to hit or stay?"
+hit_or_stay_error: "Uh, hit or stay pal?"
+
+dealer_cards: "They have the"
+dealer_new_card: "The dealer hit the"
+dealer_hit: "The dealer has decided to hit with"
+dealer_stay: "The dealer has decided to stay at"
+dealer_bust: "Boo hoo! The dealer busted at"
+
+player_win: "Congratulations! You won this hand at"
+dealer_win_a: "The Dealer wins at"
+dealer_win_b: "Good hand."
+tie: "You both tie at"
+
+play_again: "Play again? Y / N"
+play_again_error: "Enter yes or no."
+
+thanks: "Thanks for playing!"

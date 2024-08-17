@@ -1,5 +1,8 @@
 # Twenty One!
 
+require 'yaml'
+DISPLAYS = YAML.load_file('twenty_one.yml')
+
 CARDS = ["2", "3", "4", "5", "6",
          "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"]
 
@@ -13,7 +16,7 @@ def prompt(message)
 end
 
 def display_welcome
-  prompt "Welcome to Twenty One!"
+  prompt DISPLAYS['welcome']
   sleep 2
 end
 
@@ -36,7 +39,7 @@ end
 
 def display_play
   system "clear"
-  prompt "Let's play."
+  prompt DISPLAYS['play']
   sleep 2
 end
 
@@ -50,7 +53,7 @@ end
 def display_score(score)
   sleep 2.8
   system "clear"
-  puts "Player: #{score['Player']}   Dealer: #{score['Dealer']}"
+  prompt format(DISPLAYS['points'], score['Player'], score['Dealer'])
 end
 
 def add_score!(score, winner)
@@ -122,19 +125,21 @@ end
 
 def display_player_deal(player_cards, value)
   system "clear"
-  puts "You have the #{join_and(player_cards)}!"
-  puts "You're at #{value}!"
+  prompt "#{DISPLAYS['player_cards']} #{join_and(player_cards)}!"
+  prompt "#{DISPLAYS['player_value']} #{value}!"
 end
 
 def display_dealer_card(dealer_cards)
-  puts "The dealer has the #{dealer_cards.keys[1]} and an unknown card."
+  card = dealer_cards.keys[1]
+  prompt "#{DISPLAYS['dealer_card_a']} #{card} #{DISPLAYS['dealer_card_b']}"
 end
 
 def reveal_dealer_card(dealer_cards, value, blackjack: true)
-  puts "The dealer reveals the #{dealer_cards.keys[0]}!"
+  hidden_card = dealer_cards.keys[0]
+  prompt "#{DISPLAYS['dealer_reveal']} #{hidden_card}!"
 
   if !blackjack
-    puts "They have the #{join_and(dealer_cards)} at #{value}!"
+    prompt "#{DISPLAYS['dealer_cards']} #{join_and(dealer_cards)} at #{value}!"
     sleep 2
   end
 end
@@ -156,13 +161,13 @@ def display_blackjack_winner(winner)
   system "clear"
   case winner
   when "Player"
-    puts "Blackjack! You win this round."
+    prompt DISPLAYS['player_blackjack']
 
   when "Dealer"
-    puts "The dealer got Blackjack! You lost this time."
+    prompt DISPLAYS['dealer_blackjack']
 
   when "Tie"
-    puts "Double Blackjack! What are the odds? Tie game!"
+    prompt DISPLAYS['double_blackjack']
 
   end
   sleep 2.5
@@ -193,11 +198,11 @@ end
 
 def display_hit_results(value)
   if hit_twenty_one?(value)
-    puts "Well played. Let's see if the dealer can hit 21 too."
+    prompt DISPLAYS['player_hit_21']
     sleep 4
 
   elsif busted?(value)
-    puts "Oops! You busted!"
+    prompt DISPLAYS['player_busted']
   end
 end
 
@@ -206,7 +211,7 @@ def player_turn!(deck, cards)
   loop do
     break if busted?(value) || hit_twenty_one?(value)
 
-    puts "Do you want to hit or stay?"
+    prompt DISPLAYS['hit_or_stay']
     answer = gets.chomp.capitalize
 
     if answer.start_with? "H"
@@ -217,7 +222,7 @@ def player_turn!(deck, cards)
       break
 
     else
-      puts "Uh, hit or stay pal?"
+      prompt DISPLAYS['hit_or_stay_error']
     end
   end
   value
@@ -226,23 +231,23 @@ end
 def display_new_dealer_card(cards)
   sleep 1.2
   system "clear"
-  puts "The dealer hit the #{cards.keys.last}!"
+  prompt "#{DISPLAYS['dealer_new_card']} #{cards.keys.last}!"
 end
 
 def display_dealer_hit(value)
   sleep 1.2
-  puts "The dealer has decided to hit with #{value}!"
+  prompt "#{DISPLAYS['dealer_hit']} #{value}!"
 end
 
 def display_dealer_stay(value)
   sleep 1.2
   system "clear"
-  puts "The dealer has decided to stay at #{value}!"
+  prompt "#{DISPLAYS['dealer_stay']} #{value}!"
 end
 
 def display_dealer_bust(value)
   sleep 1.2
-  puts "Boo hoo! The dealer busted at #{value}."
+  prompt "#{DISPLAYS['dealer_bust']} #{value}."
 end
 
 def dealer_hit!(deck, cards)
@@ -291,13 +296,16 @@ end
 
 def display_hand_winner(winner, player_value, dealer_value)
   if winner == 'Player'
-    puts "Congratulations! You won this hand at #{player_value}."
+    prompt "#{DISPLAYS['player_win']} #{player_value}."
 
   elsif winner == "Dealer"
-    puts "The Dealer wins at #{dealer_value}! Good hand."
+    part_one = DISPLAYS['dealer_win_a']
+    part_two = DISPLAYS['dealer_win_b']
+
+    prompt "#{part_one} #{dealer_value} #{part_two}"
 
   elsif !winner
-    puts "You both tie at #{player_value}!"
+    prompt "#{DISPLAYS['tie']} #{player_value}!"
   end
 end
 
@@ -358,14 +366,14 @@ end
 def play_again?
   answer = ''
   loop do
-    puts "Play again? Y / N"
+    prompt DISPLAYS['play_again']
     answer = gets.chomp.capitalize
     system "clear"
 
     if answer.start_with?('N') || answer.start_with?('Y')
       break
     end
-    puts "Enter yes or no."
+    prompt DISPLAYS['play_again_error']
   end
   answer.start_with?('Y')
 end
@@ -391,4 +399,4 @@ loop do
   break if !play_again?
 end
 
-puts "Thanks for playing!"
+prompt DISPLAYS['thanks']
