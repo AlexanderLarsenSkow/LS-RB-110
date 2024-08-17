@@ -309,6 +309,21 @@ def display_hand_winner(winner, player_value, dealer_value)
   end
 end
 
+def get_play_again_input
+  answer = ''
+  loop do
+    prompt DISPLAYS['play_again']
+    answer = gets.chomp.capitalize
+    system "clear"
+
+    if answer.start_with?('N') || answer.start_with?('Y')
+      break
+    end
+    prompt DISPLAYS['play_again_error']
+  end
+  answer
+end
+
 def introduce_game
   display_welcome
   display_rules
@@ -335,7 +350,7 @@ def dealt_twenty_one?(player_cards, dealer_cards)
   player_value == TOP_VALUE || dealer_value == TOP_VALUE
 end
 
-def blackjack_outcome(player_cards, dealer_cards, score)
+def determine_blackjack_outcome(player_cards, dealer_cards, score)
   player_value = player_cards.values.sum
   dealer_value = dealer_cards.values.sum
 
@@ -347,7 +362,7 @@ def blackjack_outcome(player_cards, dealer_cards, score)
   display_score(score)
 end
 
-def final_outcome(deck, player_cards, dealer_cards, score)
+def determine_final_outcome(deck, player_cards, dealer_cards, score)
   player_value = player_turn!(deck, player_cards)
   dealer_value = add_values!(dealer_cards)
 
@@ -364,17 +379,7 @@ def final_outcome(deck, player_cards, dealer_cards, score)
 end
 
 def play_again?
-  answer = ''
-  loop do
-    prompt DISPLAYS['play_again']
-    answer = gets.chomp.capitalize
-    system "clear"
-
-    if answer.start_with?('N') || answer.start_with?('Y')
-      break
-    end
-    prompt DISPLAYS['play_again_error']
-  end
+  answer = get_play_again_input
   answer.start_with?('Y')
 end
 
@@ -389,12 +394,12 @@ loop do
   dealer_cards = starting_deal(deck)
 
   if dealt_twenty_one?(player_cards, dealer_cards)
-    blackjack_outcome(player_cards, dealer_cards, score)
+    determine_blackjack_outcome(player_cards, dealer_cards, score)
     next if play_again?
     break if !play_again?
   end
 
-  final_outcome(deck, player_cards, dealer_cards, score)
+  determine_final_outcome(deck, player_cards, dealer_cards, score)
 
   break if !play_again?
 end
