@@ -46,10 +46,20 @@
 	# reset the value of slice to 1 and add 1 to index
 	# Break when index equals the size of the array
 	# Return the array
-	
+
 # Now I don't have the period! Fuck.
 # This edge case is gonna kill me.
 # SO we have to the add the number but leave any punctuation.
+
+# Ok, no problem. The issue is I'm taking only part of the word.
+# I need to take the entire word, so don't take from the NUMBER_STRINGS,
+# build a new method that returns the largest string from the array returned
+# by build_substrings :)
+
+# Expected Input: Array of substrings
+# Expected Output: Replaced
+
+# Just needed to use the sub method.
 
 # Code:
 
@@ -85,10 +95,9 @@ def word_to_digit(string)
 	array = string.split
 
 	array.each_with_index do |word, index|
+		substrings = build_substrings(word)
 		NUMBER_STRINGS.each_pair do |number, digit|
-			
-			
-			array[index] = digit if build_substrings(word).include?(number)
+			array[index] = word.sub(number, digit) if substrings.include?(number)
 		end
 	end
 	array.join(' ')
@@ -96,6 +105,5 @@ end
 
 
 string = 'Please call me at five five five one two three four. Thanks.'
-p word_to_digit(string) #== 'Please call me at 5 5 5 1 2 3 4. Thanks.'
-
+p word_to_digit(string) == 'Please call me at 5 5 5 1 2 3 4. Thanks.'
 
