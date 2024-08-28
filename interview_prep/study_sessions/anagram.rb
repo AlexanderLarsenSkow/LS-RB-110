@@ -1,82 +1,81 @@
 # Problem:
-	# Expected Input: 2 strings 
+	# Expected Input: 2 strings
 	# Expected Output: Integer that shows the number of letters needed to make an anagram.
-	
+
 	# Rules:
-		# Explicit: 
+		# Explicit:
 			# Write a method that takes 2 strings and tells you how many characters you need to remove to make an anagram
-		
+
 		# Implicit:
 			# An anagram is a word that can be rearranged into another word.
 			# So two strings are anagrams if they contain the same letters in different orders.
 			# Removing means deleting.
-			
+
 # Examples:
 	# anagram_difference('', '') == 0
 	# anagram_difference('a', '') == 1 # ''
 	# anagram_difference('', 'a') == 1 # ''
 	# anagram_difference('ab', 'a') == 1 #'a'
-	# anagram_difference('ab', 'ba') == 0 # 'a' or 'b'
-	# anagram_difference('ab', 'cd') == 4 # ''
+	# anagram_difference('ab', 'ba') == 0 # 'a' or 'b' # => shows us we need to take more than the size.
+ 	# anagram_difference('ab', 'cd') == 4 # '' # => take out all the letters and repalce them with hte new letters
 	# anagram_difference('aab', 'a') == 2 # 'a'
 	# anagram_difference('a', 'aab') == 2 # 'a'
-	# anagram_difference('codewars', 'hackerrank') == 10 
-	
+	# anagram_difference('codewars', 'hackerrank') == 10
+
 # Data Structure: Arrays
 
 # Algorithm:
-	# Split string 1 by char into an array
-	# split string 2 by char into a second array
-	# make a result variable
-	# Compare each character in each array to one another.
-	# If the other array does not contain a character in the first array, remove that character
-	# If you remove a character, add 1 to the result variable.
-	# If the count of the of a character in one array is different from the count of the same character in the second array, 
-		# add that value to the character_to_delete variable.
-	# Continue until the arrays have the same characters in different or the same order.
+	# Create a number to store the number needed to take out, set it to 0.
+	# Check to see if they are anagrams (sort)
+	# If not, remove letters from one of the strings until it has the same letters as the second string
+	# THen, add the letters that it does not have from teh second string.
+	# Every time you add or delete a letter, add 1 to the number variable.
+	# When the sorted strings are equal, return this number.
 
-require "pry"
-	
+	def is_anagram?(string1, string2)
+		string1.split('').sort == string2.split('').sort
+	end
+
+	p is_anagram?('veil', 'evil')
+
+
 def anagram_difference(string1, string2)
-	array1 = string1.split('')
-	array2 = string2.split('')
-	characters_to_delete = 0
-	
-	array1.each do |char| 
-		characters_to_delete += 1 if !array2.include?(char)
-		count1 = array1.count(char)
-		count2 = array2.count(char)
-		
-		if count1 > count2 && array2.include?(char)
-			count = count1 - count2
-		elsif count2 > count1
-			count = count2 - count1
-		else 
-			count = 0
-		end 
-		characters_to_delete += count 
-		array1.shift if count1 > 1 
-	end 
-	
-	array2.each do |char|
-		characters_to_delete += 1 if !array1.include?(char)
-	end 
-	
-	characters_to_delete
-end 
-	
-p anagram_difference('', '') == 0
-p anagram_difference('a', '') == 1 # ''
-p anagram_difference('', 'a') == 1 # ''
-p anagram_difference('ab', 'a')== 1 #'a'
-p anagram_difference('ab', 'ba') == 0 # 'a' or 'b'
-p anagram_difference('ab', 'cd') == 4 # ''
-p anagram_difference('aab', 'a') == 2 # 'a'
-p anagram_difference('a', 'aab') == 2 # 'a'
-p anagram_difference('codewars', 'hackerrank') == 10 
-p anagram_difference("oudvfdjvpnzuoratzfawyjvgtuymwzccpppeluaekdlvfkhclwau", "trvhyfkdbdqbxmwpbvffiodwkhwjdjlynauunhxxafscwttqkkqw") #== 42
-p anagram_difference("fcvgqognzlzxhmtjoahpajlplfqtatuhckxpskhxiruzjirvpimrrqluhhfkkjnjeuvxzmxo", "qcfhjjhkghnmanwcthnhqsuigwzashweevbegwsbetjuyfoarckmofrfcepkcafznykmrynt") #== 50
-	
+	different_chars = []
+	temp_char_count = []
+
+	string1.each_char do |char|
+		#temp_char_count.push(string1.count(char), string2.count(char))
+		if string1.count(char) != string2.count(char)
+ 			different_chars << char
+		end
+		#temp_char_count - []
+	end
+
+	string2.each_char do |char|
+		#temp_char_count.push(string1.count(char), string2.count(char))
+		if string1.count(char) != string2.count(char)
+			different_chars << char
+		end
+	#	temp_char_count = []
+	end
+
+	different_chars#.size
+end
+
+
+p anagram_difference('aab', 'aabb')
+#p anagram_difference('', '') == 0
+#p anagram_difference('a', '') == 1 # ''
+#p anagram_difference('', 'a') == 1 # ''
+#p anagram_difference('ab', 'a')== 1 #'a'
+#p anagram_difference('ab', 'ba') == 0 # 'a' or 'b'
+#p anagram_difference('ab', 'cd') == 4 # ''
+#p anagram_difference('aab', 'a') == 2 # 'a'
+#p anagram_difference('a', 'aab') == 2 # 'a'
+p anagram_difference('codewars', 'hackerrank') #== 10
+#p anagram_difference("oudvfdjvpnzuoratzfawyjvgtuymwzccpppeluaekdlvfkhclwau", "trvhyfkdbdqbxmwpbvffiodwkhwjdjlynauunhxxafscwttqkkqw") #== 42
+#p anagram_difference("fcvgqognzlzxhmtjoahpajlplfqtatuhckxpskhxiruzjirvpimrrqluhhfkkjnjeuvxzmxo", "qcfhjjhkghnmanwcthnhqsuigwzashweevbegwsbetjuyfoarckmofrfcepkcafznykmrynt") #== 50
+
 
 
 

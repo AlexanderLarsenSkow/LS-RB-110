@@ -30,12 +30,11 @@
     # Add that character again to common_characters for each number of characters in the input array
 
   # Return the array
-  
+
 # Code
 
 def common_chars(array)
   common_characters = []
-  char_count = 0
 
   array.each do |string|
     string.each_char do |char|
@@ -51,5 +50,5 @@ def common_chars(array)
   common_characters
 end
 
-p common_chars(['roooock', 'sooooak']) #== ['o', 'k']
+p common_chars(['rock', 'sak']) #== ['o', 'k']
 p common_chars(['bella', 'lable', 'roller']) # => ['e', 'l', 'l']
