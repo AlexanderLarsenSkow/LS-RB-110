@@ -21,56 +21,39 @@
 
 # Data Structure
   # Arrays
-  # Build out substrings for string 1 only
   # If any subarray sorted can equal the entire string 2 sorted, we return true.
-  # any?
-  # substring has to be the size of string2 to work in the solution. We can't make a shorter string work.
-  # So, we can build an entire array of all the substrings or we can just try to make one with only the length of the second string
+  # Take all the characters from string1, and we minus letters if they are not present in the other string
+  # For example, 'axbrme' 'amber' 'x' is not present in 'amber', so we don't add x to the present letters array.
+  # The problem starts with duplicates: when you have more r's in the first string, and only 1 in the second.
+  # Then you have to the count of the second and minus until the count in the first is equal to the count in the second.
+
 
 # Algorithm:
-  # Build substrings for string1
-    # METHOD
-      # input string1 and string2
-      # output: substrings in an array from string1
-      # create an empty substrings array
-      # iterate from 0 to the size of string2 - 1, creating an index var to represent each value
-      # add the slice with index and string2.length to the substrings array
-      # return thhe array of substrings
+  # make an empty shared letters array
+  # Iterate through the characters in string1 and through the characters in string2
+  # If the count of the character in string1 greater than or equal to the count of the character in string2,
+    # Add the count of string1 to the string2.
 
-
-  # check if any of the substrings sorted out can equal the sorted string2. If so, return true.
-
-
-  def build_substrings(string1)
-    substrings = []
-    sorted = string1.split('').sort.join
-
-    (0...sorted.size).each do |index|
-      (1..sorted.size - index).each do |length|
-        substrings << sorted[index, length]
-      end
-    end
-    substrings
-  end
-
-  #p build_substrings('ketas')
- p build_substrings('rkqodlw')
- # p build_substrings('world')
+  # If the shared letters array can be sorted to equal string2 split into an array of chars sorted, then return true
 
   def scramble(string1, string2)
-    sub1 = build_substrings(string1)
-    sub2_max = build_substrings(string2).max_by { |substr2| substr2.size }
+    shared_letters = []
+    string1.each_char do |char1|
+      count2 = string2.count(char1)
 
+      if count2 <= string1.count(char1)
+        shared_letters << char1 until shared_letters.count(char1) == count2
+      end
 
-    sub1.any? { |substr1| substr1 == sub2_max }
-    p sub2_max
+    end
+    shared_letters.sort == string2.chars.sort
   end
 
-
-#p scramble('javaass', 'jjss') == false
+p scramble('rhaxmlbct', 'rrrrblah') == false
+p scramble('javaass', 'jjss') == false
 p scramble('rkqodlw', 'world') == true
-#p scramble('cedewaraaossoqqyt', 'codwars') == true
-#p scramble('katas', 'steak') == false
-#p scramble('scriptjava', 'javascript') == true
-#p scramble('scriptingjava', 'javascript') == true
+p scramble('cedewaraaossoqqyt', 'codwars') == true
+p scramble('katas', 'steak') == false
+p scramble('scriptjava', 'javascript') == true
+p scramble('scriptingjava', 'javascript') == true
 
