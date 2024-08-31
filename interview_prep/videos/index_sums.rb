@@ -39,11 +39,11 @@
   # The problem I'm having right now is I'm selecting out more elements.
   # So how can I get rid of the element at the index position, but only that element?
   # Remove the first index LOL
-  
+
   # If you get stuck, GO BACK to the algorithm.
   # THis isn't about trying brute force it in the code. That's not how we solve this thing.
   # I sat and struggled on this for a good 20 minutes before I went back to the algorithm and I got it in about 20 seconds LOL.
-  # 
+  #
 
 # Algorithm:
   # Iterate from the first index to the last index in the array
@@ -54,6 +54,8 @@
 
 
   def find_even_index(int_array)
+    return int_array.sum if int_array.empty?
+
     int_array.each_with_index do |_, index|
       left_side, right_side = int_array.partition.with_index { |_, index2| index2 < index }
       right_side.delete_at(0)
@@ -71,5 +73,6 @@
   p find_even_index([20, 10, 30, 10, 10, 15, 35]) == 3
   p find_even_index([20, 10, -80, 10, 10, 15, 35]) == 0
   p find_even_index([-1, -2, -3, -4, -3, -2, -1]) == 3
+  p find_even_index([]) == 0
 
 
