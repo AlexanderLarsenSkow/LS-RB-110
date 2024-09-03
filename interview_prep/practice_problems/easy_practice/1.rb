@@ -34,7 +34,7 @@
 
 def smaller_numbers_than_current(int_array)
   int_array.map do |integer|
-     int_array.uniq.partition { |int| int >= integer }[1].size
+     int_array.uniq.partition { |int| int < integer }[0].size
   end
 end
 
@@ -46,4 +46,3 @@ p smaller_numbers_than_current([1]) == [0]
 my_array = [1, 4, 6, 8, 13, 2, 4, 5, 4]
 result   = [0, 2, 4, 5, 6, 1, 2, 3, 2]
 p smaller_numbers_than_current(my_array) == result
-
