@@ -67,19 +67,21 @@
   # MAIN METHOD
     # count how many versions of string 2 are in teh substrings array
 
+    # checking for overlap:
+      # does any element in substring have the same index as the element currently being added? If so, don't add it.
+      # find the index of each char in the substring in string1. If that index matches the index of any substring
+        # in substrings, then we return true.
 
+        # What is instead, we skip iterations in the build substrings method and we only build substrings that are the size
+        # of our substring, basically. So, for example, if the substring is size 2, we check if the current index number is
+          # divides into that evenly (- 1 for index quirks)
 
-def overlap?(substrings, substring, string1, string2)
-    included_chars = []
-  p string1
-    string1.each_char do |char|
-      included_chars << char if string2.include?(char)
-    end
-
-    p included_chars
-  substring_lengths = substrings.map { |substr| substr.length }.sum
-  substring_lengths + substring.length > included_chars.length
-end
+  # I struggled for a long time on this problem.
+    # The solution, if we don't want to count overlapping substrings, it to delete or change the elements
+      # at that substring if they equal the query string, or string 2. 
+    # In this example, we just reset it to an empty space, so that it doesn't remove our indicies and mess up our iteration
+      # but also let's us avoid creating a new substring of the same characters used in the first example.
+    # Nice!
 
   def build_substrings(string1, string2)
     substrings = []
@@ -87,28 +89,29 @@ end
     (0...string1.size).each do |index|
       (1..string1.size - index).each do |length|
         substring = string1[index, length]
-        substrings << substring if substring == string2 && !overlap?(substrings, substring, string1, string2)
+        
+        if substring == string2
+          substrings << substring
+          string1[index, length] = ' '
+        end
       end
     end
     substrings
   end
 
-#p build_substrings('babab', 'bab')
-
   def count_substrings(string1, string2)
     substrings = build_substrings(string1, string2)
-
     substrings.count(string2)
   end
 
 
-p count_substrings('bababxyzasdfasdf', 'bab')
-# p count_substrings('babab', 'bab') == 1
-# p count_substrings('babab', 'ba') == 2
-# p count_substrings('babab', 'b') == 3
-# p count_substrings('babab', 'x') == 0
-# p count_substrings('babab', 'x') == 0
-# p count_substrings('', 'x') == 0
-# p count_substrings('bbbaabbbbaab', 'baab') == 2
-# p count_substrings('bbbaabbbbaab', 'bbaab') == 2
-# p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
+p count_substrings('bababxyzasdfasdf', 'bab') == 1
+p count_substrings('babab', 'bab') == 1
+p count_substrings('babab', 'ba') == 2
+p count_substrings('babab', 'b') == 3
+p count_substrings('babab', 'x') == 0
+p count_substrings('babab', 'x') == 0
+p count_substrings('', 'x') == 0
+p count_substrings('bbbaabbbbaab', 'baab') == 2
+p count_substrings('bbbaabbbbaab', 'bbaab') == 2
+p count_substrings('bbbaabbbbaabb', 'bbbaabb') == 1
