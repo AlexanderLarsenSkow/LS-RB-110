@@ -24,7 +24,7 @@ def remove_duplicates(string)
 
     if char1 == char2
       chars.delete_at(index)
-      chars.delete_at(index2 - 1)
+      #chars.delete_at(index2 - 1)
     end
 
     index += 1
