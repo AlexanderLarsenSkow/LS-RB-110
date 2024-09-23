@@ -1,54 +1,61 @@
-# PEDAC
+# Input: array of strings
+# Output: array with all shared_characters and the number of shared characters amongst all the strings
 
-# Understanding the Problem:
-  # Input: array of strings with all lowercase characters
-  # Output: Should be an array of characters that appear in every string in the input array
-
-  # Expicit Requirements:
-    # Return an array of characters that appear in every string in an input array.
+# Rules:
+  # Given an array of strings, return an array with all the shared characters. 
+  # If they also share duplicates, add the count of duplicates.
 
 # Examples:
-  # ['bella', 'lable', 'roller'] # => ['e', 'l', 'l']
-  # ['rock', 'soak'] # => ['o', 'k']
+# p common_chars(['rock', 'sak']) #== ['o', 'k']
+# p common_chars(['bella', 'lable', 'roller']) == ['e', 'l', 'l']
+# p common_chars(['boy', 'tool']) == ['o']
 
-# Data Structure:
-  # Arrays
-  # Iterate through and split strings in to subarrays of characters if needed.
-  # Can iterate through the characters to check if a character is in every string.
-  # all? on substrings, so if every array has the char then place the character in the common_characters array
+# Data Structures:
+  # what if we take one string, split it into chars
+  # and select all chars that appear in the other strings the same amount?
+
+# iterate over the array then take an array of the characters for each string
+# take an array of character counts for all shared_chars
+# if all the strings share a character, select that character.
+# only from 1st array. 
+# now, transform this array into 3 arrays of character counts: 
+  # based on every string...
+
+# have to add characters duplicates until the count is equal to the count in all the strings
+# what if we transform the array by the characters? then add until it equals the min... => helper method
+
+# iterate through the characters in the first string.
+# select all characters that appear in the other strings
+  # [bella]
+    # e l l 
 
 # Algorithm:
-  # create common_chars array
-  # Create character variable
-  # Iterate through the array and set character var equal to char
-  # Then check this character to see if it's in every element.
-  # If every string has the character, place the character in the characters array
+  # take the first string in the array and call select on it the array of characters
+  # take a transformed version of the main array for the count of the current character.
+  # if this transformed array uniqed size is equal to 1, then add the current char to a return array until it equals the integer in this array
+  # return the common_chars array
 
-  # What do we do if there are multiple same characters?
-    # Iterate through the common_characters array
-    # If the count of that element is greater than 1 in every string in side the input array,
-    # Add that character again to common_characters for each number of characters in the input array
-
-  # Return the array
-
-# Code
+  def all_have?(array)
+    array.all? { |count| count > 0 }
+  end
 
 def common_chars(array)
-  common_characters = []
+  common_chars = []
+  chars = array[0].chars
 
-  array.each do |string|
-    string.each_char do |char|
-
-      if array.all? do |string|
-        char_count = string.count(char)
-        char_count > 0
-      end
-        common_characters << char until common_characters.count(char) == char_count
-      end
+  chars.uniq.each do |char|
+    counts = array.map do |string|
+      string.count(char)
     end
+
+    if all_have?(counts)
+      common_chars << char until common_chars.count(char) == counts.min
+    end 
   end
-  common_characters
+  common_chars
 end
 
-p common_chars(['rock', 'sak']) #== ['o', 'k']
-p common_chars(['bella', 'lable', 'roller']) # => ['e', 'l', 'l']
+p common_chars(['rock', 'soak']) == ['o', 'k']
+p common_chars(['bella', 'lable', 'roller']) == ['e', 'l', 'l']
+p common_chars(['boy', 'tool']) == ['o']
+p common_chars(['hello', 'goodbye', 'booya', 'random']) == ['o']
